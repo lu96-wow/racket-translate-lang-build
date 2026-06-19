@@ -1,0 +1,3 @@
+#hash((HTTP-发送接收 . http-sendrecv) (HTTP-连接 . http-conn) (HTTP-连接-CONNECT-隧道 . http-conn-CONNECT-tunnel) (HTTP-连接-关闭! . http-conn-close!) (HTTP-连接-发送! . http-conn-send!) (HTTP-连接-发送接收! . http-conn-sendrecv!) (HTTP-连接-可活跃? . http-conn-liveable?) (HTTP-连接-打开 . http-conn-open) (HTTP-连接-打开! . http-conn-open!) (HTTP-连接-接收! . http-conn-recv!) (HTTP-连接-放弃! . http-conn-abandon!) (HTTP-连接-活跃? . http-conn-live?) (HTTP-连接-激活! . http-conn-enliven!) (HTTP-连接对象? . http-conn?) (基础-SSL?-tnl/合同 . base-ssl?-tnl/c) (基础-SSL?/合同 . base-ssl?/c) (数据-过程/合同 . data-procedure/c))
+#hash((#:SSL? . #:ssl?) (#:代理-认证 . #:proxy-auth) (#:关闭? . #:close?) (#:内容-解码 . #:content-decode) (#:数据 . #:data) (#:方法 . #:method) (#:版本 . #:version) (#:端口 . #:port) (#:自动-重连? . #:auto-reconnect?) (#:请求头 . #:headers))
+()

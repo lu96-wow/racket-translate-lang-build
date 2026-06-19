@@ -1,0 +1,3 @@
+#hash((包 . pkg) (包-作者 . pkg-author) (包-分类目录 . pkg-catalog) (包-名称 . pkg-name) (包-描述 . pkg-desc) (包-校验和 . pkg-checksum) (包-源 . pkg-source) (包? . pkg?) (当前-包-目录-文件 . current-pkg-catalog-file) (结构:包 . struct:pkg) (获取-包 . get-pkgs) (获取-包-依赖 . get-pkg-dependencies) (获取-包-标签 . get-pkg-tags) (获取-包-模块 . get-pkg-modules) (获取-包-环 . get-pkg-ring) (获取-无-模块-包 . get-pkgs-without-modules) (获取-模块-包 . get-module-pkgs) (获取-目录 . get-catalogs) (设置-包! . set-pkg!) (设置-包-依赖! . set-pkg-dependencies!) (设置-包-标签! . set-pkg-tags!) (设置-包-模块! . set-pkg-modules!) (设置-包-环! . set-pkg-ring!) (设置-包集! . set-pkgs!) (设置-目录! . set-catalogs!) (调用-带-包-事务 . call-with-pkgs-transaction))
+#hash((#:名称 . #:name) (#:清除-其他-校验和? . #:clear-other-checksums?) (#:目录 . #:catalog))
+()
