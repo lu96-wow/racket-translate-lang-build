@@ -1,0 +1,12 @@
+;; racket/for-clause
+#lang racket/base
+(provide plain-map re-exports)
+
+;; re-exports (0)
+(define re-exports '())
+
+;; plain (1/1 translated)
+(define plain-map (hash
+  'syntax-local-splicing-for-clause-introduce  "语法-局部-拼接-for-子句-引入"
+))
+

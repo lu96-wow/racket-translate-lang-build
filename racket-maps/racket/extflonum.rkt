@@ -1,0 +1,61 @@
+;; racket/extflonum
+#lang racket/base
+(provide plain-map re-exports)
+
+;; re-exports (0)
+(define re-exports '())
+
+;; plain (50/50 translated)
+(define plain-map (hash
+  '->extfl  "->扩展浮点"
+  'extfl*  "扩展浮点-*"
+  'extfl+  "扩展浮点-+"
+  'extfl-  "扩展浮点-减"
+  'extfl->exact  "扩展浮点->精确"
+  'extfl->exact-integer  "扩展浮点->精确-整数"
+  'extfl->floating-point-bytes  "扩展浮点->浮点-字节"
+  'extfl->fx  "扩展浮点->定长"
+  'extfl->inexact  "扩展浮点->非精确"
+  'extfl/  "扩展浮点-/"
+  'extfl<  "扩展浮点-<"
+  'extfl<=  "扩展浮点-<="
+  'extfl=  "扩展浮点-="
+  'extfl>  "扩展浮点->"
+  'extfl>=  "扩展浮点->="
+  'extflabs  "扩展浮点-绝对值"
+  'extflacos  "扩展浮点-反余弦"
+  'extflasin  "扩展浮点-反正弦"
+  'extflatan  "扩展浮点-反正切"
+  'extflceiling  "扩展浮点-向上取整"
+  'extflcos  "扩展浮点-余弦"
+  'extflexp  "扩展浮点-指数"
+  'extflexpt  "扩展浮点-幂"
+  'extflfloor  "扩展浮点-向下取整"
+  'extfllog  "扩展浮点-对数"
+  'extflmax  "扩展浮点-最大值"
+  'extflmin  "扩展浮点-最小值"
+  'extflonum-available?  "扩展浮点数-可用?"
+  'extflonum?  "扩展浮点数?"
+  'extflround  "扩展浮点-四舍五入"
+  'extflsin  "扩展浮点-正弦"
+  'extflsqrt  "扩展浮点-平方根"
+  'extfltan  "扩展浮点-正切"
+  'extfltruncate  "扩展浮点-截断"
+  'extflvector  "扩展浮点向量"
+  'extflvector-copy  "扩展浮点向量-复制"
+  'extflvector-length  "扩展浮点向量-长度"
+  'extflvector-ref  "扩展浮点向量-引用"
+  'extflvector-set!  "扩展浮点向量-设置!"
+  'extflvector?  "扩展浮点向量?"
+  'floating-point-bytes->extfl  "浮点-字节->扩展浮点"
+  'for*/extflvector  "for*/扩展浮点向量"
+  'for/extflvector  "for/扩展浮点向量"
+  'fx->extfl  "定长->扩展浮点"
+  'in-extflvector  "在-扩展浮点向量"
+  'make-extflvector  "创建-扩展浮点向量"
+  'make-shared-extflvector  "创建-共享-扩展浮点向量"
+  'pi.t  "π.真"
+  'real->extfl  "实数->扩展浮点"
+  'shared-extflvector  "共享-扩展浮点向量"
+))
+
