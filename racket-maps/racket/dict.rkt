@@ -55,8 +55,8 @@
 
 ;; with-kw (4)
 (define kw-map (hash
-  'make-custom-hash  (cons "创建-自定义-哈希" (hash '#:key? #f))
-  'make-custom-hash-types  (cons "创建-自定义-哈希-类型" (hash '#:for #f '#:key? #f '#:name #f))
-  'make-immutable-custom-hash  (cons "创建-不可变-自定义-哈希" (hash '#:key? #f))
-  'make-weak-custom-hash  (cons "创建-弱-自定义-哈希" (hash '#:key? #f))
+  'make-custom-hash  (cons "创建-自定义-哈希" (hash '#:key? "键?"))
+  'make-custom-hash-types  (cons "创建-自定义-哈希-类型" (hash '#:for "针对" '#:key? "键?" '#:name "名称"))
+  'make-immutable-custom-hash  (cons "创建-不可变-自定义-哈希" (hash '#:key? "键?"))
+  'make-weak-custom-hash  (cons "创建-弱-自定义-哈希" (hash '#:key? "键?"))
 ))

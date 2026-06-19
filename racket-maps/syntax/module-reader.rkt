@@ -1635,7 +1635,7 @@
   'call-with-output-file  (cons "调用-带-输出-文件" (hash '#:exists #f '#:mode #f '#:permissions #f '#:replace-permissions? #f))
   'call-with-output-file*  (cons "调用-带-输出-文件*" (hash '#:exists #f '#:mode #f '#:permissions #f '#:replace-permissions? #f))
   'collection-file-path  (cons "集合-文件-路径" (hash '#:check-compiled? #f '#:fail #f))
-  'collection-path  (cons "集合-路径" (hash '#:fail #f))
+  'collection-path  (cons "集合-路径" (hash '#:fail "失败"))
   'copy-file  (cons "复制-文件" (hash '#:exists-ok? #f '#:permissions #f '#:replace-permissions? #f))
   'directory-list  (cons "目录-列表" (hash '#:build? #f))
   'hash-copy-clear  (cons "哈希-复制-清除" (hash '#:kind #f))

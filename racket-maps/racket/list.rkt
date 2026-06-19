@@ -75,7 +75,7 @@
 
 ;; with-kw (3)
 (define kw-map (hash
-  'add-between  (cons "添加-之间" (hash '#:after-last #f '#:before-first #f '#:before-last #f '#:splice? #f))
-  'check-duplicates  (cons "检查-重复" (hash '#:default #f '#:key #f))
-  'remove-duplicates  (cons "移除-重复" (hash '#:key #f))
+  'add-between  (cons "添加-之间" (hash '#:after-last "之后-最后" '#:before-first "之前-第一" '#:before-last "之前-最后" '#:splice? "拼接?"))
+  'check-duplicates  (cons "检查-重复" (hash '#:default "默认" '#:key "键"))
+  'remove-duplicates  (cons "移除-重复" (hash '#:key "键"))
 ))

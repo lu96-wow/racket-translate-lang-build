@@ -41,7 +41,25 @@
              (when (hash? kw)
                (for ([(en val) (in-hash kw)])
                  (when (and (pair? val) (car val) (string? (car val)))
-                   (hash-set! kw-lookup en val)))))
+                   (define existing (hash-ref kw-lookup en #f))
+                   (cond
+                     [(not existing)
+                      (hash-set! kw-lookup en val)]
+                     ;; 合并：保留非 #f 的关键字翻译
+                     [(and (pair? existing) (hash? (cdr existing)) (hash? (cdr val)))
+                      (define cn-name (or (car val) (car existing)))
+                      (define old-h (cdr existing))
+                      (define new-h (cdr val))
+                      (define merged-h
+                        (for/hash ([(k v) (in-hash old-h)])
+                          (values k (or v (hash-ref new-h k #f)))))
+                      ;; 补充 new-h 中有但 old-h 中没有的键
+                      (define final-h
+                        (for/fold ([h merged-h]) ([(k v) (in-hash new-h)]
+                                                  #:when (not (hash-has-key? h k)))
+                          (hash-set h k v)))
+                      (hash-set! kw-lookup en (cons cn-name final-h))]
+                     [else (void)])))))
            (set! file-count (add1 file-count))]
           [(and (directory-exists? full)
                 (not (string-prefix? fname ".")))
@@ -148,21 +166,25 @@
                      (for/hash ([(en cn) (in-hash plain)])
                        (values en (or cn (hash-ref plain-lookup en #f))))
                      (hash)))
-               ;; 合并 kw
+               ;; 合并 kw — 逐层合并：函数名 + 关键字参数
                (define merged-kw
                  (if (hash? kw)
                      (for/hash ([(en val) (in-hash kw)])
                        (define old (hash-ref kw-lookup en #f))
                        (cond
-                         ;; 旧翻译存在，新条目未翻译 → 用旧的
-                         [(and old (pair? val) (not (car val)))
+                         [(and old (pair? old) (pair? val))
+                          ;; 两边都有 → 函数名取非#f，关键字逐个合并
+                          (define cn-name (or (car val) (car old)))
+                          (define new-kw-h (if (hash? (cdr val)) (cdr val) (hash)))
+                          (define old-kw-h (if (hash? (cdr old)) (cdr old) (hash)))
+                          (define merged-kw-h
+                            (for/hash ([(k v) (in-hash new-kw-h)])
+                              (values k (or v (hash-ref old-kw-h k #f)))))
+                          (values en (cons cn-name merged-kw-h))]
+                         ;; 旧有新无 → 用旧的
+                         [(and old (pair? old))
                           (values en old)]
-                         ;; 新条目已有翻译 → 保留
-                         [(and (pair? val) (car val))
-                          (values en val)]
-                         ;; 旧翻译存在 → 用旧的
-                         [old (values en old)]
-                         ;; 都没有 → 保留 #f
+                         ;; 其他 → 保留新的
                          [else (values en val)]))
                      (hash)))
                ;; 写回
