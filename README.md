@@ -18,7 +18,7 @@ racket tools/check/main.rkt --maps-dir racket-maps
 
 # 5. Install
 raco pkg install --link dist/racket-cn
-bash dist/lang-server/install.sh ~/racket-langserver
+bash dist/lang-server/install.sh
 
 # 6. Use
 echo '#lang racket-cn
@@ -203,7 +203,44 @@ insertText selection (language-agnostic, no character encoding detection):
 (if (string-prefix? en left-fragment) en cn)
 ```
 
-Install: `bash dist/lang-server/install.sh ~/racket-langserver`
+Install: `bash dist/lang-server/install.sh` (auto-detects racket-langserver location, or specify manually: `install.sh /path/to/racket-langserver`)
+
+## Quick Commands
+
+### Translate Files
+
+```bash
+# Chinese → English (preserves formatting, converts #lang)
+racket -e '(require racket-cn/file-map) (map-file-> "src-cn.rkt" "out-en.rkt")'
+
+# English → Chinese
+racket -e '(require racket-cn/file-map) (map-file<- "src-en.rkt" "out-cn.rkt")'
+```
+
+### Look Up Translations
+
+```bash
+# CN → EN
+racket -e '(require racket-cn/search-map) (displayln (map-> (quote 定义)))'
+# → define
+
+# EN → CN
+racket -e '(require racket-cn/search-map) (displayln (map<- (quote define)))'
+# → 定义
+
+# Batch lookup
+racket -e '(require racket-cn/search-map) (for-each (λ (s) (printf "~a → ~a\n" s (map<- s))) (list (quote define) (quote lambda) (quote if) (quote let)))'
+```
+
+### Use in REPL
+
+```racket
+> (require racket-cn/search-map)
+> (map-> '显示-行)
+'displayln
+> (map<- 'displayln)
+"显示-行"
+```
 
 ## Extending to Other Languages
 
