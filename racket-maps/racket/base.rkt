@@ -1,6 +1,6 @@
 ;; racket/base
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -1652,4 +1652,11 @@
   'thread  (cons "线程" (hash '#:keep #f '#:pool #f))
   'with-input-from-file  (cons "带-输入-自-文件" (hash '#:mode #f))
   'with-output-to-file  (cons "带-输出-到-文件" (hash '#:exists #f '#:mode #f '#:permissions #f '#:replace-permissions? #f))
+))
+
+;; kw-value-map (3 keywords)
+(define kw-value-map (hash
+  '#:exists (hash 'append #f 'can-update #f 'error #f 'must-truncate #f 'replace #f 'truncate #f 'truncate/replace #f 'update #f)
+  '#:mode (hash 'binary #f 'text #f)
+  '#:pool (hash 'own #f)
 ))

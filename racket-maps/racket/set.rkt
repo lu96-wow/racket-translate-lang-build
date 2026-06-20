@@ -1,6 +1,6 @@
 ;; racket/set
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -110,4 +110,10 @@
   'make-mutable-custom-set  (cons "创建-可变-自定义-集合" (hash '#:elem? "元素?"))
   'make-weak-custom-set  (cons "创建-弱-自定义-集合" (hash '#:elem? "元素?"))
   'set/c  (cons "集合/合约" (hash '#:cmp "比较" '#:equal-key/c "相等-键/合约" '#:kind "种类" '#:lazy? "惰性?"))
+))
+
+;; kw-value-map (2 keywords)
+(define kw-value-map (hash
+  '#:cmp (hash 'dont-care #f 'eq #f 'equal #f 'equal-always #f 'eqv #f)
+  '#:kind (hash 'dont-care #f 'immutable #f 'mutable #f 'mutable-or-weak #f 'weak #f)
 ))

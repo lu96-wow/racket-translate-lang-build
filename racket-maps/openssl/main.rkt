@@ -1,6 +1,6 @@
 ;; openssl/main
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -62,4 +62,10 @@
   'ssl-load-verify-source!  (cons "SSL-加载-验证-源!" (hash '#:try? "尝试?"))
   'ssl-make-client-context  (cons "SSL-创建-客户端-上下文" (hash '#:certificate-chain "证书-链" '#:private-key "私钥"))
   'ssl-make-server-context  (cons "SSL-创建-服务器-上下文" (hash '#:certificate-chain "证书-链" '#:private-key "私钥"))
+))
+
+;; kw-value-map (2 keywords)
+(define kw-value-map (hash
+  '#:mode (hash 'accept #f 'connect #f)
+  '#:private-key (hash 'pem #f)
 ))

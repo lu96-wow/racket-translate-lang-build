@@ -1,6 +1,6 @@
 ;; ffi/unsafe
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -174,4 +174,10 @@
   'ffi-lib  (cons "FFI-库" (hash '#:custodian "管理员" '#:fail "失败" '#:get-lib-dirs "获取-库-目录" '#:global? "全局?"))
   'list->cblock  (cons "列表->C块" (hash '#:malloc-mode "malloc-模式"))
   'vector->cblock  (cons "向量->C块" (hash '#:malloc-mode "malloc-模式"))
+))
+
+;; kw-value-map (2 keywords)
+(define kw-value-map (hash
+  '#:abi (hash 'default #f 'stdcall #f 'sysv #f)
+  '#:save-errno (hash 'posix #f 'windows #f)
 ))

@@ -73,13 +73,15 @@
 ;; Step 2: 合并翻译并写回
 ;; ============================================================
 
-(define (write-merged-map! mod-path plain kw re-exports file-path)
+(define (write-merged-map! mod-path plain kw re-exports kw-value-map file-path)
   (define has-p? (positive? (hash-count plain)))
   (define has-k? (positive? (hash-count kw)))
+  (define has-v? (and (hash? kw-value-map) (positive? (hash-count kw-value-map))))
   (define prov-parts
     (filter values
             (list (and has-p? "plain-map")
                   (and has-k? "kw-map")
+                  (and has-v? "kw-value-map")
                   "re-exports")))
   (define buf (open-output-string))
   (fprintf buf ";; ~a~n" mod-path)
@@ -126,6 +128,15 @@
               (fprintf buf " '~a #f" k))))
       (fprintf buf "))~n"))
     (fprintf buf "))~n"))
+  ;; kw-value-map（原样保留）
+  (when has-v?
+    (fprintf buf "~n;; kw-value-map (~a keywords)~n" (hash-count kw-value-map))
+    (fprintf buf "(define kw-value-map (hash~n")
+    (for ([kw (in-list (sort (hash-keys kw-value-map)
+                              (lambda (a b) (keyword<? a b))))])
+      (define vals (hash-ref kw-value-map kw))
+      (fprintf buf "  '~a ~s~n" kw vals))
+    (fprintf buf "))~n"))
   ;; write
   (display-to-file (get-output-string buf) file-path #:exists 'replace))
 
@@ -160,6 +171,10 @@
                (define re-exports
                  (with-handlers ([exn:fail? (lambda (_) '())])
                    (dynamic-require full 're-exports)))
+               ;; 保留已有的 kw-value-map
+               (define kw-value-map
+                 (with-handlers ([exn:fail? (lambda (_) (hash))])
+                   (dynamic-require full (quote kw-value-map))))
                ;; 合并 plain
                (define merged-plain
                  (if (hash? plain)
@@ -199,7 +214,8 @@
                  (set! migrated (+ migrated gained)))
                (set! total (+ total (hash-count merged-plain) (hash-count merged-kw)))
                (write-merged-map! mod-path merged-plain merged-kw
-                                  (if (list? re-exports) re-exports '())
+                                  (if (list? re-exports) re-exports (quote ()))
+                                  (if (hash? kw-value-map) kw-value-map (hash))
                                   full)
                (when (positive? gained)
                  (printf "  ~a: +~a translations~n" mod-path gained))))]

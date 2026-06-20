@@ -1,6 +1,6 @@
 ;; racket/file
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -61,4 +61,10 @@
   'make-temporary-file*  (cons "创建-临时-文件*" (hash '#:base-dir "基础-目录" '#:copy-from "复制-自"))
   'pathlist-closure  (cons "路径列表-闭包" (hash '#:follow-links? "跟随-链接?" '#:path-filter "路径-过滤"))
   'write-to-file  (cons "写-到-文件" (hash '#:exists "存在" '#:mode "模式"))
+))
+
+;; kw-value-map (2 keywords)
+(define kw-value-map (hash
+  '#:copy-from (hash 'directory #f)
+  '#:mode (hash 'binary #f 'text #f)
 ))

@@ -29,3 +29,7 @@ racket tools/collect/main.rkt \
   --skip setup/unixstyle-install.rkt \
   --skip setup/winstrip.rkt \
   --skip setup/winvers.rkt
+
+echo ""
+echo "=== Collecting kw enum values from docs ==="
+racket tools/collect-kw-vals/main.rkt --maps-dir "$MAPS_DIR"

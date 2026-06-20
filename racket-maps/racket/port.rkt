@@ -1,6 +1,6 @@
 ;; racket/port
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -60,4 +60,9 @@
   'relocate-output-port  (cons "重定位-输出-端口" (hash '#:name "名称"))
   'transplant-input-port  (cons "移植-输入-端口" (hash '#:name "名称"))
   'transplant-output-port  (cons "移植-输出-端口" (hash '#:name "名称"))
+))
+
+;; kw-value-map (1 keywords)
+(define kw-value-map (hash
+  '#:line-mode (hash 'any #f 'any-one #f 'linefeed #f 'return #f 'return-linefeed #f)
 ))

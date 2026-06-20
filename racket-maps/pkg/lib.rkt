@@ -1,6 +1,6 @@
 ;; pkg/lib
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -87,4 +87,12 @@
   'pkg-single-collection  (cons "包-单个-集合" (hash '#:name "名称" '#:namespace "命名空间"))
   'pkg-stage  (cons "包-阶段" (hash '#:force-strip? "强制-剥离?" '#:in-place? "原地?" '#:namespace "命名空间" '#:quiet? "安静?" '#:strip "剥离" '#:use-cache? "使用-缓存?"))
   'pkg-update  (cons "包-更新" (hash '#:all-platforms? "所有-平台?" '#:all? "所有?" '#:dep-behavior "依赖-行为" '#:dry-run? "试运行?" '#:force-strip? "强制-剥离?" '#:force? "强制?" '#:from-command-line? "来自-命令行?" '#:ignore-checksums? "忽略-校验和?" '#:infer-clone-from-dir? "从-目录-推断-克隆?" '#:link-dirs? "链接-目录?" '#:lookup-for-clone? "为-克隆-查找?" '#:multi-clone-behavior "多-克隆-行为" '#:pull-behavior "拉取-行为" '#:quiet? "安静?" '#:skip-uninstalled? "跳过-未安装?" '#:strict-doc-conflicts? "严格-文档-冲突?" '#:strip "剥离" '#:update-deps? "更新-依赖?" '#:update-implies? "更新-隐含?" '#:use-cache? "使用-缓存?" '#:use-trash? "使用-垃圾?"))
+))
+
+;; kw-value-map (4 keywords)
+(define kw-value-map (hash
+  '#:dep-behavior (hash 'fail #f 'force #f 'search-ask #f 'search-auto #f)
+  '#:mode (hash 'as-is #f 'binary #f 'binary-lib #f 'built #f 'source #f)
+  '#:source (hash 'dir #f 'name #f)
+  '#:strip (hash 'binary #f 'binary-lib #f 'source #f)
 ))

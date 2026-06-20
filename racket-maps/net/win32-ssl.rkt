@@ -1,6 +1,6 @@
 ;; net/win32-ssl
 #lang racket/base
-(provide plain-map kw-map re-exports)
+(provide plain-map kw-map kw-value-map re-exports)
 
 ;; re-exports (0)
 (define re-exports '())
@@ -16,4 +16,9 @@
 ;; with-kw (1)
 (define kw-map (hash
   'ports->win32-ssl-ports  (cons "端口->Win32-SSL-端口" (hash '#:encrypt "加密" '#:hostname "主机名"))
+))
+
+;; kw-value-map (1 keywords)
+(define kw-value-map (hash
+  '#:encrypt (hash 'auto #f 'secure #f 'sslv2 #f 'sslv2-or-v3 #f 'sslv3 #f 'tls #f 'tls11 #f 'tls12 #f)
 ))
