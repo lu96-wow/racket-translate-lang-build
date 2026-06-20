@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (1)
+;; plain (0/1 translated)
 (define plain-map (hash
   'close-icon%  #f
 ))

@@ -4,7 +4,7 @@
 
 ;; re-exports (2)
 (define re-exports '(
-  "gui-lib/racket/gui/base"
+  "racket/gui/base"
   "racket/main"
 ))
 

@@ -20,5 +20,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:encrypt (hash 'auto #f 'secure #f 'sslv2 #f 'sslv2-or-v3 #f 'sslv3 #f 'tls #f 'tls11 #f 'tls12 #f)
+  '#:encrypt #hash((auto . #f) (secure . #f) (sslv2 . #f) (sslv2-or-v3 . #f) (sslv3 . #f) (tls . #f) (tls11 . #f) (tls12 . #f))
 ))

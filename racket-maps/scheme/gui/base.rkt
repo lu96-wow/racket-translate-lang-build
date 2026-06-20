@@ -7,7 +7,7 @@
   "gui-lib/mred/main"
 ))
 
-;; plain (2)
+;; plain (0/2 translated)
 (define plain-map (hash
   'make-gui-empty-namespace  #f
   'make-gui-namespace  #f

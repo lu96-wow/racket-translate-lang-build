@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (43)
+;; plain (0/43 translated)
 (define plain-map (hash
   'aligned-pasteboard%  #f
   'alignment-parent<%>  #f

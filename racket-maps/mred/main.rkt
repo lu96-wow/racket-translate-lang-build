@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (264)
+;; plain (1/264 translated)
 (define plain-map (hash
   'add-color<%>  #f
   'add-editor-keymap-functions  #f
@@ -270,7 +270,7 @@
   'write-editor-global-footer  #f
   'write-editor-global-header  #f
   'write-editor-version  #f
-  'yield  #f
+  'yield  "产出"
 ))
 
 ;; with-kw (25)

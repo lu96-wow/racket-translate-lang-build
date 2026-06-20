@@ -5,11 +5,11 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (4)
+;; plain (3/4 translated)
 (define plain-map (hash
-  'get-info  #f
+  'get-info  "获取-信息"
   'get-interaction-info  #f
-  'read  #f
-  'read-syntax  #f
+  'read  "读取"
+  'read-syntax  "读取-语法"
 ))
 

@@ -12,6 +12,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:negative (hash 'from-macro #f 'unknown #f 'use-site #f)
-  '#:positive (hash 'from-macro #f 'unknown #f 'use-site #f)
+  '#:negative #hash((from-macro . #f) (unknown . #f) (use-site . #f))
+  '#:positive #hash((from-macro . #f) (unknown . #f) (use-site . #f))
 ))

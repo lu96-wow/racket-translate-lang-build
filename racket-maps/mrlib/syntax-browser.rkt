@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (3)
+;; plain (0/3 translated)
 (define plain-map (hash
   'render-syntax-focused-syntax-color-style-name  #f
   'render-syntax-subtitle-color-style-name  #f

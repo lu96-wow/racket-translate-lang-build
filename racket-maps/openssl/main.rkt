@@ -66,6 +66,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:mode (hash 'accept #f 'connect #f)
-  '#:private-key (hash 'pem #f)
+  '#:mode #hash((accept . #f) (connect . #f))
+  '#:private-key #hash((pem . #f))
 ))

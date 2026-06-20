@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (461)
+;; plain (0/461 translated)
 (define plain-map (hash
   'application:current-app-name  #f
   'autosave:autosavable<%>  #f

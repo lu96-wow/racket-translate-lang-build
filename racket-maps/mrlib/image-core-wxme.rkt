@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (2)
+;; plain (0/2 translated)
 (define plain-map (hash
   'image<%>  #f
   'reader  #f

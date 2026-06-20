@@ -62,7 +62,7 @@
     (define full (if (path? name) (path->string name) (format "~a" name)))
     (cond
       [(regexp-match #rx"collects/(.+)[.]rkt$" full) => cadr]
-      [(regexp-match #rx"pkgs/(.+)[.]rkt$" full)     => cadr]
+      [(regexp-match #rx"pkgs/[^/]+/(.+)[.]rkt$" full)     => cadr]
       [else #f])))
 
 ;; ============================================================

@@ -1656,7 +1656,7 @@
 
 ;; kw-value-map (3 keywords)
 (define kw-value-map (hash
-  '#:exists (hash 'append #f 'can-update #f 'error #f 'must-truncate #f 'replace #f 'truncate #f 'truncate/replace #f 'update #f)
-  '#:mode (hash 'binary #f 'text #f)
-  '#:pool (hash 'own #f)
+  '#:exists #hash((append . #f) (can-update . #f) (error . #f) (must-truncate . #f) (replace . #f) (truncate . #f) (truncate/replace . #f) (update . #f))
+  '#:mode #hash((binary . #f) (text . #f))
+  '#:pool #hash((own . #f))
 ))

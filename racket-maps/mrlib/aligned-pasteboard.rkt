@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (9)
+;; plain (0/9 translated)
 (define plain-map (hash
   'aligned-editor-canvas%  #f
   'aligned-editor-snip%  #f

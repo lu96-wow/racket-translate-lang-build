@@ -114,6 +114,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:cmp (hash 'dont-care #f 'eq #f 'equal #f 'equal-always #f 'eqv #f)
-  '#:kind (hash 'dont-care #f 'immutable #f 'mutable #f 'mutable-or-weak #f 'weak #f)
+  '#:cmp #hash((dont-care . #f) (eq . #f) (equal . #f) (equal-always . #f) (eqv . #f))
+  '#:kind #hash((dont-care . #f) (immutable . #f) (mutable . #f) (mutable-or-weak . #f) (weak . #f))
 ))

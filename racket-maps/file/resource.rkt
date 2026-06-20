@@ -13,5 +13,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:type (hash 'bytes #f 'bytes/expand-string #f 'bytes/string #f 'dword #f 'expand-string #f 'string #f)
+  '#:type #hash((bytes . #f) (bytes/expand-string . #f) (bytes/string . #f) (dword . #f) (expand-string . #f) (string . #f))
 ))

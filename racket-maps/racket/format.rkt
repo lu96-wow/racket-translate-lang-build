@@ -19,7 +19,7 @@
 
 ;; kw-value-map (3 keywords)
 (define kw-value-map (hash
-  '#:align (hash 'center #f 'left #f 'right #f)
-  '#:notation (hash 'exponential #f 'positional #f)
-  '#:sign (hash 'parens #f)
+  '#:align #hash((center . #f) (left . #f) (right . #f))
+  '#:notation #hash((exponential . #f) (positional . #f))
+  '#:sign #hash((parens . #f))
 ))

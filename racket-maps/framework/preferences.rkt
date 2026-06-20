@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (20)
+;; plain (0/20 translated)
 (define plain-map (hash
   'exn:make-unknown-preference  #f
   'exn:struct:unknown-preference  #f

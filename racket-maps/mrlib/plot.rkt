@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (41)
+;; plain (0/41 translated)
 (define plain-map (hash
   'data-set  #f
   'data-set-connected?  #f

@@ -64,5 +64,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:line-mode (hash 'any #f 'any-one #f 'linefeed #f 'return #f 'return-linefeed #f)
+  '#:line-mode #hash((any . #f) (any-one . #f) (linefeed . #f) (return . #f) (return-linefeed . #f))
 ))

@@ -8,7 +8,7 @@
   "snip-lib/racket/snip"
 ))
 
-;; plain (157)
+;; plain (0/157 translated)
 (define plain-map (hash
   'angle->proper-range  #f
   'atomic-shape?  #f

@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (4)
+;; plain (0/4 translated)
 (define plain-map (hash
   'decorated-editor-snip%  #f
   'decorated-editor-snip-mixin  #f

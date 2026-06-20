@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (10)
+;; plain (0/10 translated)
 (define plain-map (hash
   'gui-utils:cancel-on-right?  #f
   'gui-utils:cursor-delay  #f

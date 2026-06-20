@@ -91,8 +91,8 @@
 
 ;; kw-value-map (4 keywords)
 (define kw-value-map (hash
-  '#:dep-behavior (hash 'fail #f 'force #f 'search-ask #f 'search-auto #f)
-  '#:mode (hash 'as-is #f 'binary #f 'binary-lib #f 'built #f 'source #f)
-  '#:source (hash 'dir #f 'name #f)
-  '#:strip (hash 'binary #f 'binary-lib #f 'source #f)
+  '#:dep-behavior #hash((fail . #f) (force . #f) (search-ask . #f) (search-auto . #f))
+  '#:mode #hash((as-is . #f) (binary . #f) (binary-lib . #f) (built . #f) (source . #f))
+  '#:source #hash((dir . #f) (name . #f))
+  '#:strip #hash((binary . #f) (binary-lib . #f) (source . #f))
 ))

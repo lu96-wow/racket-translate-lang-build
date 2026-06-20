@@ -17,5 +17,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:verbosity (hash 'all #f 'none #f 'reload #f)
+  '#:verbosity #hash((all . #f) (none . #f) (reload . #f))
 ))

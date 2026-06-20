@@ -13,6 +13,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:group (hash 'all #f 'docs #f 'libs #f)
-  '#:mode (hash 'all-available #f 'no-planet #f 'no-user #f 'preferred #f)
+  '#:group #hash((all . #f) (docs . #f) (libs . #f))
+  '#:mode #hash((all-available . #f) (no-planet . #f) (no-user . #f) (preferred . #f))
 ))

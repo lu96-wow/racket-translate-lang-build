@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (17)
+;; plain (0/17 translated)
 (define plain-map (hash
   'add-splash-icon  #f
   'close-splash  #f

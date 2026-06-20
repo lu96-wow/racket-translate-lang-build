@@ -10,7 +10,7 @@
   "gui-lib/framework/test"
 ))
 
-;; plain (405)
+;; plain (0/405 translated)
 (define plain-map (hash
   'application:current-app-name  #f
   'autosave:autosavable<%>  #f

@@ -7,7 +7,7 @@
   "gui-lib/mrlib/cache-image-snip"
 ))
 
-;; plain (6)
+;; plain (0/6 translated)
 (define plain-map (hash
   'matrix-snip-class%  #f
   'matrix<%>  #f

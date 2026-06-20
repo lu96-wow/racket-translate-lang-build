@@ -10,8 +10,8 @@
   "scheme-lib/scheme/main"
 ))
 
-;; plain (1)
+;; plain (1/1 translated)
 (define plain-map (hash
-  '#%module-begin  #f
+  '#%module-begin  "#%模块-开始"
 ))
 

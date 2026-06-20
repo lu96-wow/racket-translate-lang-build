@@ -178,6 +178,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:abi (hash 'default #f 'stdcall #f 'sysv #f)
-  '#:save-errno (hash 'posix #f 'windows #f)
+  '#:abi #hash((default . #f) (stdcall . #f) (sysv . #f))
+  '#:save-errno #hash((posix . #f) (windows . #f))
 ))

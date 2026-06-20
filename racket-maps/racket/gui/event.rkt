@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (7)
+;; plain (0/7 translated)
 (define plain-map (hash
   'column-control-event%  #f
   'control-event%  #f

@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (14)
+;; plain (0/14 translated)
 (define plain-map (hash
   'add-links  #f
   'add-links/text-colors  #f

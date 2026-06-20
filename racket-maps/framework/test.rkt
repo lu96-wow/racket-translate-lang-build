@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (22)
+;; plain (0/22 translated)
 (define plain-map (hash
   'button-in-top-level-focusd-window?  #f
   'enabled-shown-button?  #f

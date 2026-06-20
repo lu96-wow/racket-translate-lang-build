@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (3)
+;; plain (0/3 translated)
 (define plain-map (hash
   'auto-tab-panel%  #f
   'single-mixin  #f

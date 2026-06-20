@@ -5,7 +5,7 @@
 ;; re-exports (0)
 (define re-exports '())
 
-;; plain (6)
+;; plain (0/6 translated)
 (define plain-map (hash
   'notify:check-box/notify-box  #f
   'notify:choice/notify-box  #f
