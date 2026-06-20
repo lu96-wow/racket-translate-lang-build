@@ -232,14 +232,28 @@
   ;; Step 3: info
   (generate-info! (output-dir) (lang-name))
 
-  ;; Step 4: lang-server（可选，仅在指定 --lang-server-dir 时生成）
+  ;; Step 4: lang-server（可选）
   (when (ls-dir)
     (make-directory* (ls-dir))
     (define ls-vars
       (hash "~LANG-NAME~"   (lang-name)
             "~PRELOAD~"     (preload-mod)
-            "~TABLES-PATH~" (or (ls-tables) tables-path)))
+            "~TABLES-PATH~" (or (ls-tables) tables-path)
+            "~CONFIGURED-TABLES~"
+              (path->string (simple-form-path tables-dir))))
     (printf "~nGenerating lang-server...~n")
-    (apply-template! "lang-server.rkt" (ls-dir) ls-vars))
+    ;; 读模板时用子目录，写出时不用
+    (define (apply-ls-template! tmpl-name ls-vars)
+      (define tmpl (file->string (build-path templates-dir "lang-server" tmpl-name)))
+      (define result
+        (for/fold ([s tmpl]) ([(k v) (in-hash ls-vars)])
+          (string-replace s k v)))
+      (display-to-file result (build-path (ls-dir) tmpl-name) #:exists 'replace)
+      (printf "  -> ~a~n" tmpl-name))
+    (apply-ls-template! "translate.rkt" ls-vars)
+    (apply-ls-template! "doc.rkt" ls-vars)
+    (apply-ls-template! "doc-lang.rkt" ls-vars)
+    (apply-ls-template! "interfaces.rkt" ls-vars)
+    (apply-ls-template! "install.sh" ls-vars))
 
   (printf "~nDone.~n"))

@@ -4,7 +4,9 @@
 ;; (map<- en)  → cn-string  | #f   英文→中文
 
 (require racket/file racket/path)
-(provide map-> map<-)
+(provide map-> map<-
+         ;; 向后兼容旧 langserver
+         search-map-> search-map<-)
 
 ;; tables/ 目录
 (define tables-root
@@ -59,3 +61,6 @@
                   [(symbol? en) en]
                   [else (error "map<-: expected string or symbol")]))
   (hash-ref en->cn s #f))
+;; 向后兼容别名
+(define search-map-> map->)
+(define search-map<- map<-)
