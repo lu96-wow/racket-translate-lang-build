@@ -22,8 +22,8 @@
 ;; Step 1: maps -> tables (.rktd)
 ;; ============================================================
 
-;; 从 plain-map 和 kw-map 构建 id-table (CN→EN) 和 kw-table (CN-kw→EN-kw)
-(define (build-tables plain kw)
+;; 从 plain-map、kw-map、kw-value-map 构建 id-table 和 kw-table
+(define (build-tables plain kw kw-value-map)
   (define id-table (make-hash))
   (define kw-table (make-hash))
   ;; plain: 'define -> "定义" ==> '定义 -> 'define
@@ -41,6 +41,12 @@
             (string->keyword
              (if (string-prefix? cn-kw "#:") (substring cn-kw 2) cn-kw)))
           (hash-set! kw-table cn-keyword en-kw)))))
+  ;; kw-value-map: '#:exists (hash 'append "追加" ...) ==> '追加 -> 'append
+  (when (hash? kw-value-map)
+    (for ([(kw vals-hash) (in-hash kw-value-map)])
+      (when (hash? vals-hash)
+        (for ([(en-val cn-val) (in-hash vals-hash)] #:when (and cn-val (string? cn-val)))
+          (hash-set! id-table (string->symbol cn-val) en-val)))))
   (values (make-immutable-hash (hash->list id-table))
           (make-immutable-hash (hash->list kw-table))))
 
@@ -85,11 +91,15 @@
                (define re-exports
                  (with-handlers ([exn:fail? (lambda (_) '())])
                    (dynamic-require full 're-exports)))
+                (define kw-value-map
+                  (with-handlers ([exn:fail? (lambda (_) (hash))])
+                    (dynamic-require full (quote kw-value-map))))
                ;; 构建表
                (define-values (id-table kw-table)
                  (build-tables
                   (if (hash? plain) plain (hash))
-                  (if (hash? kw) kw (hash))))
+                  (if (hash? kw) kw (hash))
+                   (if (hash? kw-value-map) kw-value-map (hash))))
                ;; 写 .rktd
                (define out-path
                  (build-path tables-dir (string-append mod-path ".rktd")))
