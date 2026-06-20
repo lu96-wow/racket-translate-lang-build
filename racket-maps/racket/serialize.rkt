@@ -22,5 +22,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'serialize  (cons "序列化" (hash '#:deserialize-relative-directory #f '#:relative-directory #f))
+  'serialize  (cons "序列化" (hash '#:deserialize-relative-directory "反序列化-相对-目录" '#:relative-directory "相对-目录"))
 ))

@@ -7,6 +7,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'register-external-file  (cons #f (hash '#:indirect? #f))
-  'register-external-module  (cons #f (hash '#:indirect? #f))
+  'register-external-file  (cons "register-external-文件" (hash '#:indirect? "间接?"))
+  'register-external-module  (cons "register-external-模块" (hash '#:indirect? "间接?"))
 ))

@@ -15,5 +15,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'draw-button-label  (cons #f (hash '#:wob? #f))
+  'draw-button-label  (cons "绘制-按钮-标签" (hash '#:wob? "白底黑字?"))
 ))

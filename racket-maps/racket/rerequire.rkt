@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'dynamic-rerequire  (cons "动态-重新需求" (hash '#:verbosity #f))
+  'dynamic-rerequire  (cons "动态-重新需求" (hash '#:verbosity "详细程度"))
 ))

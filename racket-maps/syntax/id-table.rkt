@@ -58,10 +58,10 @@
 
 ;; with-kw (6)
 (define kw-map (hash
-  'bound-id-table/c  (cons #f (hash '#:immutable #f))
-  'free-id-table/c  (cons #f (hash '#:immutable #f))
-  'make-bound-id-table  (cons #f (hash '#:phase #f))
-  'make-free-id-table  (cons #f (hash '#:phase #f))
-  'make-immutable-bound-id-table  (cons #f (hash '#:phase #f))
-  'make-immutable-free-id-table  (cons #f (hash '#:phase #f))
+  'bound-id-table/c  (cons "绑定-标识符-table/c" (hash '#:immutable "不可变"))
+  'free-id-table/c  (cons "自由-标识符-table/c" (hash '#:immutable "不可变"))
+  'make-bound-id-table  (cons "创建-绑定-标识符-表" (hash '#:phase "阶段"))
+  'make-free-id-table  (cons "创建-自由-标识符-表" (hash '#:phase "阶段"))
+  'make-immutable-bound-id-table  (cons "创建-不可变-绑定-标识符-表" (hash '#:phase "阶段"))
+  'make-immutable-free-id-table  (cons "创建-不可变-自由-标识符-表" (hash '#:phase "阶段"))
 ))

@@ -65,6 +65,6 @@
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:copy-from #hash((directory . #f))
-  '#:mode #hash((binary . #f) (text . #f))
+  '#:copy-from #hash((directory . "目录"))
+  '#:mode #hash((binary . "二进制") (text . "文本"))
 ))

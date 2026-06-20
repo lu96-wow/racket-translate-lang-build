@@ -12,5 +12,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'collection-search  (cons #f (hash '#:all-possible-roots? #f '#:break? #f '#:combine #f '#:init #f))
+  'collection-search  (cons "collection-搜索" (hash '#:all-possible-roots? "所有-可能-根?" '#:break? "中断?" '#:combine "组合" '#:init "初始化"))
 ))

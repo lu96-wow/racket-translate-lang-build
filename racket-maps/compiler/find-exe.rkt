@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'find-exe  (cons #f (hash '#:cross? #f '#:untethered? #f))
+  'find-exe  (cons "查找-exe" (hash '#:cross? "交叉?" '#:untethered? "非绑定?"))
 ))

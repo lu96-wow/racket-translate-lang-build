@@ -22,6 +22,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'format-id  (cons "格式化-标识" (hash '#:cert #f '#:props #f '#:source #f '#:subs-intro #f '#:subs? #f))
-  'wrong-syntax  (cons "错误-语法" (hash '#:extra #f))
+  'format-id  (cons "格式化-标识" (hash '#:cert "证书" '#:props "属性" '#:source "来源" '#:subs-intro "子项-引入" '#:subs? "子项?"))
+  'wrong-syntax  (cons "错误-语法" (hash '#:extra "额外"))
 ))

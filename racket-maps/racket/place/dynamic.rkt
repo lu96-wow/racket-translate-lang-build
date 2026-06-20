@@ -26,6 +26,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'dynamic-place  (cons "动态-场所" (hash '#:at #f '#:named #f))
-  'dynamic-place*  (cons "动态-场所*" (hash '#:err #f '#:in #f '#:out #f))
+  'dynamic-place  (cons "动态-场所" (hash '#:at "在" '#:named "命名的"))
+  'dynamic-place*  (cons "动态-场所*" (hash '#:err "错误输出" '#:in "输入" '#:out "输出"))
 ))

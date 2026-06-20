@@ -28,5 +28,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'start-splash  (cons #f (hash '#:allow-funny? #f '#:frame-icon #f '#:increment-splash #f))
+  'start-splash  (cons "启动-闪屏" (hash '#:allow-funny? "允许-特殊?" '#:frame-icon "窗口-图标" '#:increment-splash "增量-启动画面"))
 ))

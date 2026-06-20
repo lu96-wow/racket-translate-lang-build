@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'create-dirs-catalog  (cons #f (hash '#:check-metadata? #f '#:immediate? #f '#:link? #f '#:merge? #f '#:status-printf #f))
+  'create-dirs-catalog  (cons "创建-dirs-catalog" (hash '#:check-metadata? "检查-元数据?" '#:immediate? "立即?" '#:link? "链接?" '#:merge? "合并?" '#:status-printf "状态-打印"))
 ))

@@ -7,11 +7,11 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'wrap-expr/c  (cons #f (hash '#:arg? #f '#:context #f '#:macro #f '#:name #f '#:negative #f '#:phase #f '#:positive #f))
+  'wrap-expr/c  (cons "包装-表达式/c" (hash '#:arg? "参数?" '#:context "上下文" '#:macro "宏" '#:name "名称" '#:negative "负数" '#:phase "阶段" '#:positive "正数"))
 ))
 
 ;; kw-value-map (2 keywords)
 (define kw-value-map (hash
-  '#:negative #hash((from-macro . #f) (unknown . #f) (use-site . #f))
-  '#:positive #hash((from-macro . #f) (unknown . #f) (use-site . #f))
+  '#:negative #hash((from-macro . "来自-宏") (unknown . "未知") (use-site . "使用-位置"))
+  '#:positive #hash((from-macro . "来自-宏") (unknown . "未知") (use-site . "使用-位置"))
 ))

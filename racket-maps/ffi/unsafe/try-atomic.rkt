@@ -13,5 +13,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'try-atomic  (cons #f (hash '#:keep-in-order? #f '#:should-give-up? #f))
+  'try-atomic  (cons "尝试-原子" (hash '#:keep-in-order? "保持-顺序?" '#:should-give-up? "应该-放弃?"))
 ))

@@ -23,5 +23,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'dd-parse  (cons #f (hash '#:mutable #f '#:to-list #f))
+  'dd-parse  (cons "dd-解析" (hash '#:mutable "可变" '#:to-list "转-列表"))
 ))

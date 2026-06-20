@@ -12,6 +12,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'with-intercepted-logging  (cons "带-拦截-日志" (hash '#:logger #f))
-  'with-logging-to-port  (cons "带-日志-到-端口" (hash '#:logger #f))
+  'with-intercepted-logging  (cons "带-拦截-日志" (hash '#:logger "日志器"))
+  'with-logging-to-port  (cons "带-日志-到-端口" (hash '#:logger "日志器"))
 ))

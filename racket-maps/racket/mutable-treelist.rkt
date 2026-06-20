@@ -46,7 +46,7 @@
 
 ;; with-kw (3)
 (define kw-map (hash
-  'chaperone-mutable-treelist  (cons "监护-可变-树列表" (hash '#:append #f '#:insert #f '#:prepend #f '#:ref #f '#:set #f))
-  'impersonate-mutable-treelist  (cons "模拟-可变-树列表" (hash '#:append #f '#:insert #f '#:prepend #f '#:ref #f '#:set #f))
-  'mutable-treelist-sort!  (cons "可变-树列表-排序!" (hash '#:cache-keys? #f '#:key #f))
+  'chaperone-mutable-treelist  (cons "监护-可变-树列表" (hash '#:append "追加" '#:insert "插入" '#:prepend "前置" '#:ref "引用" '#:set "设置"))
+  'impersonate-mutable-treelist  (cons "模拟-可变-树列表" (hash '#:append "追加" '#:insert "插入" '#:prepend "前置" '#:ref "引用" '#:set "设置"))
+  'mutable-treelist-sort!  (cons "可变-树列表-排序!" (hash '#:cache-keys? "缓存-键?" '#:key "键"))
 ))

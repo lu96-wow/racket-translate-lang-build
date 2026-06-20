@@ -52,5 +52,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'build-collapsible-contract-property  (cons #f (hash '#:collapsible-guard #f '#:try-merge #f))
+  'build-collapsible-contract-property  (cons "build-collapsible-contract-属性" (hash '#:collapsible-guard "可折叠-守卫" '#:try-merge "尝试-合并"))
 ))

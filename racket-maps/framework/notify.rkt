@@ -17,5 +17,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'notify:notify-box/pref  (cons #f (hash '#:readonly? #f))
+  'notify:notify-box/pref  (cons "通知:通知框/偏好" (hash '#:readonly? "只读?"))
 ))

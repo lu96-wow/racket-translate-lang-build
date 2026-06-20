@@ -14,7 +14,7 @@
 
 ;; with-kw (3)
 (define kw-map (hash
-  'mztar  (cons #f (hash '#:as-path #f))
-  'pack-collections-plt  (cons #f (hash '#:at-plt-home? #f '#:extra-setup-collections #f '#:file-filter #f '#:replace? #f '#:test-plt-collects? #f))
-  'pack-plt  (cons #f (hash '#:as-paths #f '#:at-plt-home? #f '#:collections #f '#:conflicts #f '#:encode? #f '#:file-filter #f '#:file-mode #f '#:plt-relative? #f '#:requires #f '#:test-plt-dirs #f '#:unpack-unit #f))
+  'mztar  (cons "mz打包" (hash '#:as-path "作为-路径"))
+  'pack-collections-plt  (cons "打包-集合包-plt" (hash '#:at-plt-home? "在-plt-主目录?" '#:extra-setup-collections "额外-设置-集合包" '#:file-filter "文件-过滤" '#:replace? "替换?" '#:test-plt-collects? "测试-plt-集合包?"))
+  'pack-plt  (cons "打包-plt" (hash '#:as-paths "作为-路径列表" '#:at-plt-home? "在-plt-主目录?" '#:collections "集合包" '#:conflicts "冲突" '#:encode? "编码?" '#:file-filter "文件-过滤" '#:file-mode "文件-模式" '#:plt-relative? "plt-相对?" '#:requires "依赖" '#:test-plt-dirs "测试-plt-目录" '#:unpack-unit "解包-单元"))
 ))

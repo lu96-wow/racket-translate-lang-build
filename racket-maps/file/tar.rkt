@@ -26,5 +26,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:format #hash((gnu . #f) (pax . #f) (ustar . #f))
+  '#:format #hash((gnu . "gnu") (pax . "pax") (ustar . "ustar"))
 ))

@@ -12,5 +12,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'write-animated-gif  (cons #f (hash '#:disposal #f '#:last-frame-delay #f '#:loop? #f '#:one-at-a-time? #f))
+  'write-animated-gif  (cons "写入-动画-gif" (hash '#:disposal "释放" '#:last-frame-delay "最后帧-延迟" '#:loop? "循环?" '#:one-at-a-time? "逐个?"))
 ))

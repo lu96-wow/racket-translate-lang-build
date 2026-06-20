@@ -31,5 +31,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'preferences:set-default  (cons #f (hash '#:aliases #f '#:rewrite-aliases #f))
+  'preferences:set-default  (cons "偏好:设置-默认" (hash '#:aliases "别名" '#:rewrite-aliases "重写-别名"))
 ))

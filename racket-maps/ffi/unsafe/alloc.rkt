@@ -7,8 +7,8 @@
 
 ;; with-kw (4)
 (define kw-map (hash
-  'allocator  (cons #f (hash '#:merely-uninterruptible? #f))
-  'deallocator  (cons #f (hash '#:merely-uninterruptible? #f))
-  'releaser  (cons #f (hash '#:merely-uninterruptible? #f))
-  'retainer  (cons #f (hash '#:merely-uninterruptible? #f))
+  'allocator  (cons "分配器" (hash '#:merely-uninterruptible? "仅-不可中断?"))
+  'deallocator  (cons "释放器" (hash '#:merely-uninterruptible? "仅-不可中断?"))
+  'releaser  (cons "释放器" (hash '#:merely-uninterruptible? "仅-不可中断?"))
+  'retainer  (cons "保持器" (hash '#:merely-uninterruptible? "仅-不可中断?"))
 ))

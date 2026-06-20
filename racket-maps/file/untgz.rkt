@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'untgz  (cons #f (hash '#:dest #f '#:filter #f '#:permissive? #f '#:strip-count #f))
+  'untgz  (cons "解压-tgz" (hash '#:dest "目标" '#:filter "过滤" '#:permissive? "宽松?" '#:strip-count "剥离-计数"))
 ))

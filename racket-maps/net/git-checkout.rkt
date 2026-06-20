@@ -21,7 +21,7 @@
 
 ;; kw-value-map (3 keywords)
 (define kw-value-map (hash
-  '#:port #hash((git . #f) (http . #f) (https . #f))
-  '#:ref #hash((head . #f))
-  '#:transport #hash((git . #f) (http . #f) (https . #f))
+  '#:port #hash((git . "git") (http . "http") (https . "https"))
+  '#:ref #hash((head . "头部"))
+  '#:transport #hash((git . "git") (http . "http") (https . "https"))
 ))

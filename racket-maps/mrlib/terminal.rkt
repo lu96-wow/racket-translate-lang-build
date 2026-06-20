@@ -13,5 +13,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'in-terminal  (cons #f (hash '#:abort-label #f '#:aborted-message #f '#:canvas-min-height #f '#:canvas-min-width #f '#:cleanup-thunk #f '#:close-button? #f '#:close-callback #f '#:close-label #f '#:close-when-hidden? #f '#:container #f '#:title #f))
+  'in-terminal  (cons "在-终端" (hash '#:abort-label "中止-标签" '#:aborted-message "中止-消息" '#:canvas-min-height "画布-最小-高度" '#:canvas-min-width "画布-最小-宽度" '#:cleanup-thunk "清理-函数" '#:close-button? "关闭-按钮?" '#:close-callback "关闭-回调" '#:close-label "关闭-标签" '#:close-when-hidden? "隐藏时-关闭?" '#:container "容器" '#:title "标题"))
 ))

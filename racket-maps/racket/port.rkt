@@ -64,5 +64,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:line-mode #hash((any . #f) (any-one . #f) (linefeed . #f) (return . #f) (return-linefeed . #f))
+  '#:line-mode #hash((any . "任意") (any-one . "任意一个") (linefeed . "换行符") (return . "回车") (return-linefeed . "回车-换行"))
 ))

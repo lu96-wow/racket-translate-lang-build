@@ -12,10 +12,10 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'dynamic-enter!  (cons "动态-进入!" (hash '#:re-require-enter? #f '#:verbosity #f))
+  'dynamic-enter!  (cons "动态-进入!" (hash '#:re-require-enter? "重新-需求-进入?" '#:verbosity "详细程度"))
 ))
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:verbosity #hash((all . #f) (none . #f) (reload . #f))
+  '#:verbosity #hash((all . "全部") (none . "无") (reload . "重新加载"))
 ))

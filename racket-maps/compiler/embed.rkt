@@ -22,5 +22,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:variant #hash((cgc . #f) (cs . #f))
+  '#:variant #hash((cgc . "cgc") (cs . "cs"))
 ))

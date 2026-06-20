@@ -75,11 +75,11 @@
 
 ;; with-kw (7)
 (define kw-map (hash
-  'bound-id-set/c  (cons #f (hash '#:mutability #f))
-  'free-id-set/c  (cons #f (hash '#:mutability #f))
-  'id-set/c  (cons #f (hash '#:idsettype #f '#:mutability #f))
-  'immutable-bound-id-set  (cons #f (hash '#:phase #f))
-  'immutable-free-id-set  (cons #f (hash '#:phase #f))
-  'mutable-bound-id-set  (cons #f (hash '#:phase #f))
-  'mutable-free-id-set  (cons #f (hash '#:phase #f))
+  'bound-id-set/c  (cons "绑定-标识符-set/c" (hash '#:mutability "可变性"))
+  'free-id-set/c  (cons "自由-标识符-set/c" (hash '#:mutability "可变性"))
+  'id-set/c  (cons "标识符-set/c" (hash '#:idsettype "标识符集-类型" '#:mutability "可变性"))
+  'immutable-bound-id-set  (cons "不可变-绑定-标识符-设置" (hash '#:phase "阶段"))
+  'immutable-free-id-set  (cons "不可变-自由-标识符-设置" (hash '#:phase "阶段"))
+  'mutable-bound-id-set  (cons "可变-绑定-标识符-设置" (hash '#:phase "阶段"))
+  'mutable-free-id-set  (cons "可变-自由-标识符-设置" (hash '#:phase "阶段"))
 ))

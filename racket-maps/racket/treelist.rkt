@@ -50,6 +50,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'chaperone-treelist  (cons "监护-树列表" (hash '#:append #f '#:append2 #f '#:delete #f '#:drop #f '#:insert #f '#:prepend #f '#:ref #f '#:set #f '#:state #f '#:state-key #f '#:take #f))
-  'treelist-sort  (cons "树列表-排序" (hash '#:cache-keys? #f '#:key #f))
+  'chaperone-treelist  (cons "监护-树列表" (hash '#:append "追加" '#:append2 "追加2" '#:delete "删除" '#:drop "丢弃" '#:insert "插入" '#:prepend "前置" '#:ref "引用" '#:set "设置" '#:state "状态" '#:state-key "状态-键" '#:take "取"))
+  'treelist-sort  (cons "树列表-排序" (hash '#:cache-keys? "缓存-键?" '#:key "键"))
 ))

@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'links  (cons #f (hash '#:error #f '#:file #f '#:name #f '#:remove? #f '#:repair? #f '#:root? #f '#:show? #f '#:static-root? #f '#:user-version #f '#:user? #f '#:version-regexp #f '#:with-path? #f))
+  'links  (cons "链接" (hash '#:error "错误" '#:file "文件" '#:name "名称" '#:remove? "移除?" '#:repair? "修复?" '#:root? "根?" '#:show? "显示?" '#:static-root? "静态-根?" '#:user-version "用户-版本" '#:user? "用户?" '#:version-regexp "版本-正则" '#:with-path? "带-路径?"))
 ))

@@ -1,3 +1,3 @@
-#hash((~.sexp . ~.s) (~.任意 . ~.a) (~.值 . ~.v) (~sexp . ~s) (~任意 . ~a) (~值 . ~v) (~数 . ~r) (~表达式 . ~e))
+#hash((~.sexp . ~.s) (~.任意 . ~.a) (~.值 . ~.v) (~sexp . ~s) (~任意 . ~a) (~值 . ~v) (~数 . ~r) (~表达式 . ~e) (位置式 . positional) (右 . right) (居中 . center) (左 . left) (括号 . parens) (指数 . exponential))
 #hash((#:分组 . #:groups) (#:分组-分隔符 . #:group-sep) (#:分隔符 . #:separator) (#:右-填充-字符串 . #:right-pad-string) (#:基数 . #:base) (#:填充-字符串 . #:pad-string) (#:宽度 . #:width) (#:对齐 . #:align) (#:小数-分隔符 . #:decimal-sep) (#:左-填充-字符串 . #:left-pad-string) (#:最大-宽度 . #:max-width) (#:最小-宽度 . #:min-width) (#:格式-指数 . #:format-exponent) (#:符号 . #:sign) (#:精度 . #:precision) (#:记法 . #:notation) (#:限制-前缀? . #:limit-prefix?) (#:限制-标记 . #:limit-marker))
 ()

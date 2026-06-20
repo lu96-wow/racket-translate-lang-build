@@ -23,6 +23,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'get-info  (cons #f (hash '#:bootstrap? #f '#:namespace #f))
-  'get-info/full  (cons #f (hash '#:bootstrap? #f '#:namespace #f))
+  'get-info  (cons "获取-信息" (hash '#:bootstrap? "引导?" '#:namespace "命名空间"))
+  'get-info/full  (cons "获取-info/full" (hash '#:bootstrap? "引导?" '#:namespace "命名空间"))
 ))

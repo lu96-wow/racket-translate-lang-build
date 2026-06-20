@@ -14,5 +14,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'run-single-installer  (cons #f (hash '#:show-beginning-of-file? #f))
+  'run-single-installer  (cons "运行-单个-安装器" (hash '#:show-beginning-of-file? "显示-文件-开头?"))
 ))

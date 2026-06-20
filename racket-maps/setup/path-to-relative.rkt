@@ -12,6 +12,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'path->relative-string/library  (cons #f (hash '#:cache #f))
-  'path->relative-string/setup  (cons #f (hash '#:cache #f))
+  'path->relative-string/library  (cons "路径->相对-字符串/库" (hash '#:cache "缓存"))
+  'path->relative-string/setup  (cons "路径->相对-字符串/设置" (hash '#:cache "缓存"))
 ))

@@ -23,5 +23,5 @@
 
 ;; kw-value-map (1 keywords)
 (define kw-value-map (hash
-  '#:encode #hash((all . #f) (control . #f))
+  '#:encode #hash((all . "全部") (control . "控制"))
 ))

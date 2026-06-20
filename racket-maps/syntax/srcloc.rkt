@@ -28,5 +28,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'update-source-location  (cons #f (hash '#:column #f '#:line #f '#:position #f '#:source #f '#:span #f))
+  'update-source-location  (cons "更新-来源-location" (hash '#:column "列" '#:line "行" '#:position "位置" '#:source "来源" '#:span "跨度"))
 ))

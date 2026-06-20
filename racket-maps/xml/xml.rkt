@@ -132,9 +132,9 @@
 
 ;; with-kw (5)
 (define kw-map (hash
-  'display-xml  (cons #f (hash '#:indentation #f))
-  'display-xml/content  (cons #f (hash '#:indentation #f))
-  'syntax:read-xml  (cons #f (hash '#:src #f))
-  'syntax:read-xml/element  (cons #f (hash '#:src #f))
-  'write-xexpr  (cons #f (hash '#:insert-newlines? #f))
+  'display-xml  (cons "显示-xml" (hash '#:indentation "缩进"))
+  'display-xml/content  (cons "显示-xml/content" (hash '#:indentation "缩进"))
+  'syntax:read-xml  (cons "语法:读取-xml" (hash '#:src "源"))
+  'syntax:read-xml/element  (cons "语法:读取-xml/元素" (hash '#:src "源"))
+  'write-xexpr  (cons "写入-xexpr" (hash '#:insert-newlines? "插入-换行?"))
 ))

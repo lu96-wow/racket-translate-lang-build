@@ -7,5 +7,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'free-vars  (cons #f (hash '#:module-bound? #f))
+  'free-vars  (cons "自由-vars" (hash '#:module-bound? "模块-绑定?"))
 ))

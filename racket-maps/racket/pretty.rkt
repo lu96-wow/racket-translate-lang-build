@@ -32,8 +32,8 @@
 
 ;; with-kw (4)
 (define kw-map (hash
-  'pretty-display  (cons "美化-显示" (hash '#:newline? #f))
-  'pretty-format  (cons "美化-格式" (hash '#:mode #f))
-  'pretty-print  (cons "美化-打印" (hash '#:newline? #f))
-  'pretty-write  (cons "美化-写" (hash '#:newline? #f))
+  'pretty-display  (cons "美化-显示" (hash '#:newline? "换行?"))
+  'pretty-format  (cons "美化-格式" (hash '#:mode "模式"))
+  'pretty-print  (cons "美化-打印" (hash '#:newline? "换行?"))
+  'pretty-write  (cons "美化-写" (hash '#:newline? "换行?"))
 ))

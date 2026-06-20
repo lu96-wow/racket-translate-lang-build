@@ -17,8 +17,8 @@
 
 ;; with-kw (4)
 (define kw-map (hash
-  'options-select-row  (cons #f (hash '#:default #f))
-  'options-select-value  (cons #f (hash '#:default #f))
-  'parse-keyword-options  (cons #f (hash '#:context #f '#:incompatible #f '#:no-duplicates? #f '#:on-incompatible #f '#:on-not-in-table #f '#:on-too-short #f))
-  'parse-keyword-options/eol  (cons #f (hash '#:context #f '#:incompatible #f '#:no-duplicates? #f '#:on-incompatible #f '#:on-not-eol #f '#:on-not-in-table #f '#:on-too-short #f))
+  'options-select-row  (cons "选项-选择-行" (hash '#:default "默认"))
+  'options-select-value  (cons "options-select-值" (hash '#:default "默认"))
+  'parse-keyword-options  (cons "parse-关键字-options" (hash '#:context "上下文" '#:incompatible "不兼容" '#:no-duplicates? "无-重复?" '#:on-incompatible "不兼容时" '#:on-not-in-table "不在-表中时" '#:on-too-short "太短时"))
+  'parse-keyword-options/eol  (cons "parse-关键字-options/eol" (hash '#:context "上下文" '#:incompatible "不兼容" '#:no-duplicates? "无-重复?" '#:on-incompatible "不兼容时" '#:on-not-eol "非-行尾时" '#:on-not-in-table "不在-表中时" '#:on-too-short "太短时"))
 ))

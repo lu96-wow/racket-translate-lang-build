@@ -7,6 +7,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'cache-file  (cons #f (hash '#:evict-before? #f '#:exists-ok? #f '#:log-debug-string #f '#:log-error-string #f '#:max-cache-files #f '#:max-cache-size #f '#:notify-cache-use #f))
-  'cache-remove  (cons #f (hash '#:log-debug-string #f '#:log-error-string #f))
+  'cache-file  (cons "cache-文件" (hash '#:evict-before? "驱逐前?" '#:exists-ok? "存在-确认?" '#:log-debug-string "日志-调试-字符串" '#:log-error-string "日志-错误-字符串" '#:max-cache-files "最大-缓存-文件数" '#:max-cache-size "最大-缓存-大小" '#:notify-cache-use "通知-缓存-使用"))
+  'cache-remove  (cons "cache-移除" (hash '#:log-debug-string "日志-调试-字符串" '#:log-error-string "日志-错误-字符串"))
 ))

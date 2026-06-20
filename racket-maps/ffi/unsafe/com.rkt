@@ -84,5 +84,5 @@
 
 ;; with-kw (1)
 (define kw-map (hash
-  'make-com-object  (cons #f (hash '#:manage? #f))
+  'make-com-object  (cons "创建-com-object" (hash '#:manage? "管理?"))
 ))

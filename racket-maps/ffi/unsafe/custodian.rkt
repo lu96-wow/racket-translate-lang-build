@@ -13,6 +13,6 @@
 
 ;; with-kw (2)
 (define kw-map (hash
-  'register-custodian-shutdown  (cons #f (hash '#:at-exit? #f '#:ordered? #f '#:weak? #f))
-  'register-finalizer-and-custodian-shutdown  (cons #f (hash '#:at-exit? #f '#:custodian-available #f '#:custodian-unavailable #f))
+  'register-custodian-shutdown  (cons "注册-管理器-关闭" (hash '#:at-exit? "退出时?" '#:ordered? "有序?" '#:weak? "弱引用?"))
+  'register-finalizer-and-custodian-shutdown  (cons "注册-终结器-和-管理器-关闭" (hash '#:at-exit? "退出时?" '#:custodian-available "管理器-可用" '#:custodian-unavailable "管理器-不可用"))
 ))
