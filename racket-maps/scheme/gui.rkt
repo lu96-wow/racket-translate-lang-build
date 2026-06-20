@@ -4,7 +4,7 @@
 
 ;; re-exports (2)
 (define re-exports '(
-  "gui-lib/scheme/gui/base"
-  "scheme-lib/scheme/main"
+  "scheme/gui/base"
+  "scheme/main"
 ))
 

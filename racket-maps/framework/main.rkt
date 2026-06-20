@@ -4,13 +4,13 @@
 
 ;; re-exports (4)
 (define re-exports '(
-  "gui-lib/framework/decorated-editor-snip"
-  "gui-lib/framework/gui-utils"
-  "gui-lib/framework/preferences"
-  "gui-lib/framework/test"
+  "framework/decorated-editor-snip"
+  "framework/gui-utils"
+  "framework/preferences"
+  "framework/test"
 ))
 
-;; plain (0/405 translated)
+;; plain (405)
 (define plain-map (hash
   'application:current-app-name  #f
   'autosave:autosavable<%>  #f

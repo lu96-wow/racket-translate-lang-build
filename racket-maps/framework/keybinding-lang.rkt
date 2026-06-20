@@ -4,14 +4,14 @@
 
 ;; re-exports (4)
 (define re-exports '(
-  "gui-lib/framework/main"
-  "gui-lib/mred/main"
-  "scheme-lib/scheme/class"
-  "scheme-lib/scheme/main"
+  "framework/main"
+  "mred/main"
+  "scheme/class"
+  "scheme/main"
 ))
 
-;; plain (1/1 translated)
+;; plain (1)
 (define plain-map (hash
-  '#%module-begin  "#%模块-开始"
+  '#%module-begin  #f
 ))
 

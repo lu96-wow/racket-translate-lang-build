@@ -4,10 +4,10 @@
 
 ;; re-exports (1)
 (define re-exports '(
-  "gui-lib/mred/main"
+  "mred/main"
 ))
 
-;; plain (0/2 translated)
+;; plain (2)
 (define plain-map (hash
   'make-gui-empty-namespace  #f
   'make-gui-namespace  #f

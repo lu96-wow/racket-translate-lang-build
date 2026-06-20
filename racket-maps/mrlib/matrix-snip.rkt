@@ -4,10 +4,10 @@
 
 ;; re-exports (1)
 (define re-exports '(
-  "gui-lib/mrlib/cache-image-snip"
+  "mrlib/cache-image-snip"
 ))
 
-;; plain (0/6 translated)
+;; plain (6)
 (define plain-map (hash
   'matrix-snip-class%  #f
   'matrix<%>  #f

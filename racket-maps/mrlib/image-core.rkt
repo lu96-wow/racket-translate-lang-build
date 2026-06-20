@@ -5,10 +5,10 @@
 ;; re-exports (2)
 (define re-exports '(
   "racket/math"
-  "snip-lib/racket/snip"
+  "racket/snip"
 ))
 
-;; plain (0/157 translated)
+;; plain (157)
 (define plain-map (hash
   'angle->proper-range  #f
   'atomic-shape?  #f

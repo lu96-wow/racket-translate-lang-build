@@ -4,6 +4,6 @@
 
 ;; re-exports (1)
 (define re-exports '(
-  "gui-lib/mrlib/hierlist"
+  "mrlib/hierlist"
 ))
 

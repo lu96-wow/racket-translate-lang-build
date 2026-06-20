@@ -4,6 +4,6 @@
 
 ;; re-exports (1)
 (define re-exports '(
-  "gui-lib/racket/gui/init"
+  "racket/gui/init"
 ))
 
