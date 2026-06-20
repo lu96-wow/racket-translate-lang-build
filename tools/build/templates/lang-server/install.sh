@@ -1,11 +1,19 @@
 #!/bin/bash
 # install.sh — 将 lang-server 适配层安装到 racket-langserver
 set -e
-LANGSERVER="${1:-$HOME/racket-langserver}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-if [ ! -d "$LANGSERVER/doclib" ]; then
-  echo "Error: racket-langserver not found at $LANGSERVER"
+# 自动获取 racket-langserver 包目录，或手动指定
+if [ -n "$1" ]; then
+  LANGSERVER="$1"
+else
+  LANGSERVER=$(racket -e '(require pkg/lib) (define d (pkg-directory "racket-langserver")) (when d (display (path->string d)))' 2>/dev/null)
+fi
+
+if [ -z "$LANGSERVER" ] || [ ! -d "$LANGSERVER/doclib" ]; then
+  echo "Error: racket-langserver not found"
+  echo "  auto-detect failed, specify manually:"
+  echo "  $0 /path/to/racket-langserver"
   exit 1
 fi
 
