@@ -758,8 +758,7 @@
                               #:insertTextFormat (Nothing))
               ;; ASCII 前缀 → 英文，否则（中文/空）→ 中文
               (let ([insert (if (and (positive? (string-length left-fragment))
-                                     (for/and ([c (in-string left-fragment)])
-                                       (char<=? c (integer->char 127))))
+                                     (string-prefix? en left-fragment))
                                 en
                                 cn)])
                 (CompletionItem #:label (format "~a (~a)" cn en)
