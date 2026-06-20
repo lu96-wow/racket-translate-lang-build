@@ -1,3 +1,3 @@
 #hash()
 #hash()
-("gui-lib/mred/main")
+("mred/main")

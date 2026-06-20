@@ -1,3 +1,3 @@
 #hash()
 #hash()
-("gui-lib/mrlib/cache-image-snip")
+("mrlib/cache-image-snip")

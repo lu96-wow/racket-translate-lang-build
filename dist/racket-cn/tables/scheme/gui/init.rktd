@@ -1,3 +1,3 @@
 #hash()
 #hash()
-("gui-lib/racket/gui/init")
+("racket/gui/init")

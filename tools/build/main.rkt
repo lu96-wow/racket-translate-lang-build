@@ -166,9 +166,11 @@
   (define lang-name    (make-parameter #f))
   (define maps-dir     (make-parameter #f))
   (define output-dir   (make-parameter #f))
-  (define tables-dir-p (make-parameter #f))  ;; 可选，默认 output-dir/tables
+  (define tables-dir-p (make-parameter #f))
   (define preload-mod  (make-parameter #f))
   (define base-lang    (make-parameter #f))
+  (define ls-dir       (make-parameter #f))  ;; lang-server 输出目录
+  (define ls-tables    (make-parameter #f))  ;; lang-server 的 tables 路径
   (command-line
    #:once-each
    ["--lang"       name "Language package name (e.g. racket-cn)"  (lang-name name)]
@@ -178,6 +180,10 @@
     (tables-dir-p dir)]
    ["--preload"    mod  "Default table to preload"                (preload-mod mod)]
    ["--base-lang"  lang "Underlying language (e.g. racket)"       (base-lang lang)]
+   ["--lang-server-dir" dir "Generate lang-server to this directory"
+    (ls-dir dir)]
+   ["--lang-server-tables" path "Tables path for lang-server (relative to lang-server)"
+    (ls-tables path)]
    #:args () (void))
 
   (unless (and (lang-name) (maps-dir) (output-dir) (preload-mod) (base-lang))
@@ -225,5 +231,15 @@
 
   ;; Step 3: info
   (generate-info! (output-dir) (lang-name))
+
+  ;; Step 4: lang-server（可选，仅在指定 --lang-server-dir 时生成）
+  (when (ls-dir)
+    (make-directory* (ls-dir))
+    (define ls-vars
+      (hash "~LANG-NAME~"   (lang-name)
+            "~PRELOAD~"     (preload-mod)
+            "~TABLES-PATH~" (or (ls-tables) tables-path)))
+    (printf "~nGenerating lang-server...~n")
+    (apply-template! "lang-server.rkt" (ls-dir) ls-vars))
 
   (printf "~nDone.~n"))

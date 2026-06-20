@@ -15,4 +15,6 @@ racket tools/build/main.rkt \
   --base-lang racket \
   --maps-dir racket-maps \
   --output-dir "$OUTPUT_DIR" \
-  --preload racket/main
+  --preload racket/main \
+  --lang-server-dir dist/lang-server \
+  --lang-server-tables "../racket-cn/tables"
