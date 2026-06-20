@@ -1,25 +1,26 @@
 # racket-lang-build
 
-Racket 语言本地化构建工具。通用翻译框架，可翻译任意 Racket 库。
+A generic framework for building localized Racket language packages. Translate any Racket library into any language.
 
-## 快速开始
+## Quick Start
 
 ```bash
-# 1. 生成翻译模板（扫描模块 + 文档枚举值）
+# 1. Generate translation templates (scan modules + doc enum values)
 ./scripts/gen-racket.sh
 
-# 2. 翻译 racket-maps/*.rkt（将 #f 替换为中文）
+# 2. Translate racket-maps/*.rkt (replace #f with translations)
 
-# 3. 校验
+# 3. Validate
 racket tools/check/main.rkt --maps-dir racket-maps
 
-# 4. 构建语言包
+# 4. Build language package + lang-server adapter
 ./scripts/build-racket-cn.sh
 
-# 5. 安装
+# 5. Install
 raco pkg install --link dist/racket-cn
+bash dist/lang-server/install.sh ~/racket-langserver
 
-# 6. 使用
+# 6. Use
 echo '#lang racket-cn
 (定义 (阶乘 n)
   (如果 (< n 2) 1 (* n (阶乘 (- n 1)))))
@@ -27,214 +28,215 @@ echo '#lang racket-cn
 racket test.rkt  # → 3628800
 ```
 
-## 项目结构
+## Project Structure
 
 ```
-tools/                          ← 纯工具，零硬编码
-├── collect/                      模块扫描 → 翻译模板
-│   ├── main.rkt                    CLI + 递归遍历
-│   ├── scan.rkt                    module->exports 来源追踪 + 去重
-│   └── writer.rkt                  map 文件生成
-├── collect-kw-vals/              从 Scribble 文档提取关键字枚举值
-│   └── main.rkt                    blueboxes 查询 + 追加到 map
-├── check/                        翻译校验
-│   └── main.rkt                    缺失 / CN冲突 / EN冲突
-└── build/                        构建语言包
-    ├── main.rkt                    maps → tables + 模板填充
+tools/                              ← Pure tools, zero hardcoding
+├── collect/                          Module scanning → translation templates
+│   ├── main.rkt                        CLI + recursive traversal + --skip
+│   ├── scan.rkt                        module->exports source tracking + dedup
+│   └── writer.rkt                      Map file generation
+├── collect-kw-vals/                  Extract keyword enum values from docs
+│   └── main.rkt                        Scribble blueboxes query
+├── check/                            Translation validation
+│   └── main.rkt                        Missing / CN-conflict / EN-conflict
+└── build/                            Build language package
+    ├── main.rkt                        maps → tables + template filling
     └── templates/
-        ├── reader.rkt              #lang reader 模板
-        ├── search-map.rkt          翻译查询 API
-        └── file-map.rkt            文件转换（保留格式）
+        ├── reader.rkt                  #lang reader template
+        ├── search-map.rkt              Translation lookup API
+        ├── file-map.rkt                File conversion (preserves formatting)
+        └── lang-server/                Language server adapter
+            ├── translate.rkt             Table loading (no suffix matching)
+            ├── doc.rkt                   Bilingual completion + smart insertText
+            ├── doc-lang.rkt              #lang detection (~LANG-NAME~ matching)
+            ├── interfaces.rkt            CompletionItem extensions
+            └── install.sh               One-click install to racket-langserver
 
-scripts/                        ← Racket 特定配置
-├── gen-racket.sh                 collect + kw-vals 配置
-├── build-racket-cn.sh            build 配置
-└── migrate-translations.rkt      从旧 maps 迁移翻译
+scripts/                            ← Racket-specific configuration
+├── gen-racket.sh                     collect + kw-vals
+├── build-racket-cn.sh                Build Chinese language package
+├── build-racket-gui.sh               Scan gui-lib package
+└── migrate-translations.rkt          Migrate translations from old maps
 ```
 
-## 架构
+## Architecture
 
-### 数据流
+### Data Flow
 
 ```
-Racket 模块                          Scribble 文档
+Racket modules                       Scribble docs
      │                                    │
      ▼                                    ▼
   collect                           collect-kw-vals
  (module->exports                  (fetch-blueboxes-strs
-  来源追踪去重)                      解析枚举值)
+  source tracking + dedup)          parse enum values)
      │                                    │
      ▼                                    ▼
-  maps/*.rkt ──── 手工翻译 ──── maps/*.rkt (含 kw-value-map)
+  maps/*.rkt ──── translate ──── maps/*.rkt (with kw-value-map)
                                           │
                                     ▼           ▼
                                  check        build
-                               (校验)    (maps → .rktd tables
-                                          + reader + utilities)
+                              (validate)  (maps → .rktd tables
+                                           + reader + utilities
+                                           + lang-server)
                                                │
-                                               ▼
-                                         dist/racket-cn/
-                                         ├── main.rkt
-                                         ├── search-map.rkt
-                                         ├── file-map.rkt
-                                         └── tables/*.rktd
+                              ┌────────────────┼────────────────┐
+                              ▼                                 ▼
+                        dist/racket-cn/              dist/lang-server/
+                        ├── main.rkt                 ├── translate.rkt
+                        ├── search-map.rkt           ├── doc.rkt
+                        ├── file-map.rkt             ├── install.sh
+                        └── tables/                  └── ...
 ```
 
-### Map 文件格式
+### Deduplication
 
-```racket
-;; racket/list
-#lang racket/base
-(provide plain-map kw-map kw-value-map re-exports)
-
-;; re-exports (0)
-(define re-exports '())
-
-;; plain (64)
-(define plain-map (hash
-  'first   "第一"
-  'rest    "剩余"
-  'append  #f       ;; ← #f = 未翻译
-  ...))
-
-;; with-kw (3)
-(define kw-map (hash
-  'add-between (cons "添加-之间" (hash '#:splice? "拼接?"))
-  ...))
-
-;; kw-value-map (从文档提取的枚举值)
-(define kw-value-map (hash
-  '#:exists (hash 'append #f 'truncate #f 'error #f ...)
-  '#:mode   (hash 'binary #f 'text #f)
-))
-```
-
-### 去重机制
-
-每个 map 只包含**本模块定义**的符号。来自其他模块的通过 `re-exports` 转发：
+Each map contains only symbols **defined in that module**. Symbols from other
+modules are forwarded via `re-exports`:
 
 ```
-racket/main.rkt  → 0 own + re-exports: 31 个子模块（无重复翻译）
-racket/base.rkt  → 1641 own（所有符号都在这里翻译）
-racket/list.rkt  → 67 own（list 自己的符号）
+racket/main  → 0 own + re-exports: 31 submodules (no duplicate translation)
+racket/base  → 1641 own (all symbols translated here)
+racket/list  → 67 own (list-specific symbols only)
+racket/gui   → 0 own + re-exports: racket/gui/base, racket/main
 ```
 
-## 工具参考
+For pkg-installed libraries, the package name prefix is automatically stripped:
+`pkgs/gui-lib/racket/gui/base.rkt` → `racket/gui/base` (not `gui-lib/racket/gui/base`)
 
-### collect — 扫描模块
+## Tool Reference
+
+### collect
 
 ```bash
-# 扫描整个目录
-racket tools/collect/main.rkt \
-  --input-dir /usr/racket/collects \
-  --maps-dir racket-maps \
-  --skip private --skip compiled \
-  --skip racket/help.rkt
+racket tools/collect/main.rkt \\
+  --input-dir /usr/racket/collects \\
+  --maps-dir racket-maps \\
+  --skip private --skip compiled
 
-# 扫描指定 collection
-racket tools/collect/main.rkt \
-  --input-dir /usr/racket/collects \
-  -c racket -c json \
-  --maps-dir racket-maps
-
-# 扫描指定模块
-racket tools/collect/main.rkt racket/base racket/list \
-  --maps-dir racket-maps
+# Scan pkg-installed libraries
+./scripts/build-racket-gui.sh
 ```
 
-`--skip` 规则：不含 `/` 匹配 basename，含 `/` 匹配相对路径。
+`--skip` rules: without `/` matches basename, with `/` matches relative path.
 
-### collect-kw-vals — 从文档补充枚举值
+### collect-kw-vals
 
 ```bash
 racket tools/collect-kw-vals/main.rkt --maps-dir racket-maps
 ```
 
-在已有 map 文件末尾追加 `kw-value-map`，幂等（重复运行不会重复追加）。
+Appends `kw-value-map` to existing map files. Idempotent.
 
-### check — 校验翻译
+### check
 
 ```bash
 racket tools/check/main.rkt --maps-dir racket-maps --report-dir racket-maps
 ```
 
-生成三个报告：
-- `missing.rktd` — 编辑时丢失的符号
-- `conflict-cn.rktd` — 不同 EN → 同一 CN（读取器歧义）
-- `conflict-en.rktd` — 同一 EN → 不同 CN（不一致）
+Generates: `missing.rktd`, `conflict-cn.rktd`, `conflict-en.rktd`
 
-### build — 构建语言包
+### build
 
 ```bash
-racket tools/build/main.rkt \
-  --lang racket-cn \
-  --base-lang racket \
-  --maps-dir racket-maps \
-  --output-dir dist/racket-cn \
-  --preload racket/main \
-  [--tables-dir custom/tables/path]
+racket tools/build/main.rkt \\
+  --lang racket-cn \\
+  --base-lang racket \\
+  --maps-dir racket-maps \\
+  --output-dir dist/racket-cn \\
+  --preload racket/main \\
+  [--tables-dir path] \\
+  [--lang-server-dir dist/lang-server] \\
+  [--lang-server-tables "../racket-cn/tables"]
 ```
 
-| 参数 | 说明 |
-|------|------|
-| `--lang` | 语言包名，决定 `#lang` 标识 |
-| `--base-lang` | 底层语言，file-map 的 #lang 转换目标 |
-| `--maps-dir` | 翻译源目录 |
-| `--output-dir` | 输出包目录 |
-| `--preload` | reader 启动时预加载的表（相对 tables 目录） |
-| `--tables-dir` | 表存放路径（默认 output-dir/tables） |
+| Parameter | Description |
+|-----------|-------------|
+| `--lang` | Package name, determines `#lang` identifier |
+| `--base-lang` | Underlying language, file-map #lang conversion target |
+| `--maps-dir` | Translated maps directory |
+| `--output-dir` | Output package directory |
+| `--preload` | Default table to preload at startup |
+| `--tables-dir` | Tables directory (default: output-dir/tables) |
+| `--lang-server-dir` | Lang-server output directory (optional) |
+| `--lang-server-tables` | Tables path for lang-server (optional) |
 
-### 模板变量
+### Template Variables
 
-| 占位符 | 来源 | 说明 |
-|--------|------|------|
-| `~LANG-NAME~` | `--lang` | 语言包名 |
-| `~BASE-LANG~` | `--base-lang` | 底层语言 |
-| `~PRELOAD~` | `--preload` | 预加载表路径 |
-| `~TABLES-PATH~` | `--tables-dir` 或默认 `"tables"` | 表查找路径 |
+| Placeholder | Source | Description |
+|-------------|--------|-------------|
+| `~LANG-NAME~` | `--lang` | Language package name |
+| `~BASE-LANG~` | `--base-lang` | Underlying language |
+| `~PRELOAD~` | `--preload` | Preload table path |
+| `~TABLES-PATH~` | `--tables-dir` or `"tables"` | Tables lookup path |
 
-## 生成的语言包
+## Generated Output
 
 ```
-dist/racket-cn/
-├── main.rkt           #lang racket-cn reader
-├── search-map.rkt     (map-> '定义) → 'define / (map<- 'define) → "定义"
-├── file-map.rkt       (map-file-> "cn.rkt" "en.rkt") 保留格式
-├── info.rkt           包信息
-└── tables/            .rktd 翻译表（与模块目录同构）
+dist/
+├── racket-cn/                     ← raco pkg install --link
+│   ├── main.rkt                     #lang reader
+│   ├── search-map.rkt               (map-> 'sym) / (map<- 'sym)
+│   ├── file-map.rkt                 (map-file-> src dst) preserves formatting
+│   ├── info.rkt
+│   └── tables/                      .rktd translation tables
+└── lang-server/                   ← install.sh → racket-langserver
+    ├── translate.rkt                Scoped table loading, no suffix matching
+    ├── doc.rkt                      Bilingual completion + smart insertText
+    ├── doc-lang.rkt                 #lang exact matching
+    ├── interfaces.rkt               insertText + DocumentSymbol
+    └── install.sh                   Copy + raco setup
 ```
 
-## 扩展其他语言
+### Language Server
+
+```
+Completion popup:    定义 (define)
+Type "def"  → insert: define     ← EN prefix match → insert English
+Type "定"   → insert: 定义       ← no EN match → insert translated
+Empty       → insert: 定义       ← default translated
+```
+
+insertText selection (language-agnostic, no character encoding detection):
+```racket
+(if (string-prefix? en left-fragment) en cn)
+```
+
+Install: `bash dist/lang-server/install.sh ~/racket-langserver`
+
+## Extending to Other Languages
 
 ```bash
-# 日文
-cp scripts/gen-racket.sh scripts/gen-racket-jp.sh
-# 修改 MAPS_DIR 为 racket-maps-jp
-
 cat > scripts/build-racket-jp.sh << 'EOF'
-racket tools/build/main.rkt \
-  --lang racket-jp --base-lang racket \
-  --maps-dir racket-maps-jp \
-  --output-dir dist/racket-jp \
-  --preload racket/main
+racket tools/build/main.rkt \\
+  --lang racket-jp --base-lang racket \\
+  --maps-dir racket-maps-jp \\
+  --output-dir dist/racket-jp \\
+  --preload racket/main \\
+  --lang-server-dir dist/lang-server-jp \\
+  --lang-server-tables "../racket-jp/tables"
 EOF
 ```
 
-工具不变，只需新脚本 + 新翻译。
+Tools are generic — only scripts and translations change.
+`~LANG-NAME~` is substituted into all templates automatically.
 
-## 扩展其他库
+## Extending to Other Libraries
 
 ```bash
-# 收集 pict 库
-racket tools/collect/main.rkt \
-  --input-dir /usr/racket/collects -c pict \
-  --maps-dir racket-maps
+# Scan pkg-installed libraries (e.g. gui-lib)
+./scripts/build-racket-gui.sh
 
-# 翻译 racket-maps/pict/*.rkt
+# Or scan any library
+racket tools/collect/main.rkt \\
+  --input-dir /usr/racket/share/pkgs/pict-lib \\
+  --maps-dir racket-maps --skip private --skip compiled
 
-# 重新构建（所有库的表一起生成）
+# Translate, rebuild, reinstall
 ./scripts/build-racket-cn.sh
 raco pkg install --link dist/racket-cn
 ```
 
-`(require pict)` 时 reader 自动查 `tables/pict/main.rktd`。
+`(require pict)` → reader loads `tables/pict/main.rktd` automatically.
+Pkg re-export paths are normalized: `pkgs/[^/]+/(.+)` strips the package name.
