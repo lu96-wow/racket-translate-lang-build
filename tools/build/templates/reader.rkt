@@ -14,7 +14,7 @@
     (define active-kw (box (hash)))
     (define loaded    (box (list)))
 
-    ;; tables/ dir: relative to this file
+    ;; tables dir: relative to this file (build 时填充)
     (define tables-root
       (let* ([mpi (variable-reference->module-path-index (#%variable-reference))]
              [rmp (module-path-index-resolve mpi)]
@@ -23,7 +23,7 @@
                       (if (pair? f) (path->string (car f)) f))]
              [i   (let loop ([i (sub1 (string-length s))])
                     (if (char=? (string-ref s i) #\/) i (loop (sub1 i))))])
-        (string-append (substring s 0 i) "/tables")))
+        (string-append (substring s 0 i) "/~TABLES-PATH~")))
 
     ;; ===== load .rktd =====
     (define (read-table-file path)

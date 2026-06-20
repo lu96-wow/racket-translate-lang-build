@@ -128,15 +128,16 @@
                 (syntax-source (quote-syntax here))))])
     (build-path here "templates")))
 
-(define (generate-reader! output-dir base-lang preload-mod)
-  (define tmpl (file->string (build-path templates-dir "reader.rkt")))
-  (define code
-    (string-replace
-     (string-replace tmpl "~BASE-LANG~" base-lang)
-     "~PRELOAD~" preload-mod))
-  (define out-path (build-path output-dir "main.rkt"))
-  (display-to-file code out-path #:exists 'replace)
-  (printf "  -> main.rkt (base-lang: ~a, preload: ~a)~n" base-lang preload-mod))
+;; reader 也统一用 apply-template!
+(define (generate-reader! output-dir vars)
+  (apply-template! "reader.rkt" output-dir
+    (hash-set (hash-set vars "~BASE-LANG~" (hash-ref vars "~BASE-LANG~"))
+              "~PRELOAD~" (hash-ref vars "~PRELOAD~")))
+  ;; 重命名为 main.rkt
+  (define src (build-path output-dir "reader.rkt"))
+  (define dst (build-path output-dir "main.rkt"))
+  (when (file-exists? dst) (delete-file dst))
+  (rename-file-or-directory src dst))
 
 ;; 复制并替换模板占位符
 (define (apply-template! name output-dir vars)
@@ -162,46 +163,65 @@
 ;; CLI
 ;; ============================================================
 (module+ main
-  (define lang-name   (make-parameter #f))
-  (define maps-dir    (make-parameter #f))
-  (define output-dir  (make-parameter #f))
-  (define preload-mod (make-parameter #f))
-  (define base-lang   (make-parameter #f))
+  (define lang-name    (make-parameter #f))
+  (define maps-dir     (make-parameter #f))
+  (define output-dir   (make-parameter #f))
+  (define tables-dir-p (make-parameter #f))  ;; 可选，默认 output-dir/tables
+  (define preload-mod  (make-parameter #f))
+  (define base-lang    (make-parameter #f))
   (command-line
    #:once-each
    ["--lang"       name "Language package name (e.g. racket-cn)"  (lang-name name)]
    ["--maps-dir"   dir  "Translated maps directory"               (maps-dir dir)]
    ["--output-dir" dir  "Output package directory"                (output-dir dir)]
-   ["--preload"    mod  "Default table to preload (default: racket/main)"
-    (preload-mod mod)]
-   ["--base-lang"  lang "Underlying language (default: racket)"
-    (base-lang lang)]
+   ["--tables-dir" dir  "Tables directory (default: output-dir/tables)"
+    (tables-dir-p dir)]
+   ["--preload"    mod  "Default table to preload"                (preload-mod mod)]
+   ["--base-lang"  lang "Underlying language (e.g. racket)"       (base-lang lang)]
    #:args () (void))
 
   (unless (and (lang-name) (maps-dir) (output-dir) (preload-mod) (base-lang))
     (printf "Usage: racket tools/build/main.rkt \\~n")
     (printf "  --lang NAME --maps-dir DIR --output-dir DIR \\~n")
-    (printf "  --preload MOD --base-lang LANG~n")
+    (printf "  --preload MOD --base-lang LANG [--tables-dir DIR]~n")
     (exit 1))
 
-  (define tables-dir (build-path (output-dir) "tables"))
+  ;; tables 路径：用户传什么就用什么，默认 "tables"
+  (define tables-path
+    (or (tables-dir-p) "tables"))
+  (define tables-dir
+    (if (tables-dir-p)
+        (tables-dir-p)
+        (build-path (output-dir) "tables")))
   (make-directory* tables-dir)
   (make-directory* (output-dir))
 
   (printf "=== build ~a ===~n" (lang-name))
   (printf "maps:   ~a~n" (maps-dir))
-  (printf "output: ~a~n~n" (output-dir))
+  (printf "output: ~a~n" (output-dir))
+  (printf "tables: ~a~n~n" tables-path)
+
+  ;; 所有模板共享的变量
+  (define common-vars
+    (hash "~LANG-NAME~"   (lang-name)
+          "~BASE-LANG~"   (base-lang)
+          "~PRELOAD~"     (preload-mod)
+          "~TABLES-PATH~" tables-path))
 
   ;; Step 1: tables
   (printf "Building tables...~n")
   (build-all-tables (maps-dir) tables-dir)
 
-  ;; Step 2: reader + utilities
+  ;; Step 2: reader + utilities（统一用 apply-template!）
   (printf "~nGenerating files...~n")
-  (generate-reader! (output-dir) (base-lang) (preload-mod))
-  (apply-template! "search-map.rkt" (output-dir) (hash))
-  (apply-template! "file-map.rkt" (output-dir)
-    (hash "~LANG-NAME~" (lang-name) "~BASE-LANG~" (base-lang)))
+  (apply-template! "reader.rkt" (output-dir) common-vars)
+  ;; reader.rkt → main.rkt
+  (let ([src (build-path (output-dir) "reader.rkt")]
+        [dst (build-path (output-dir) "main.rkt")])
+    (when (file-exists? dst) (delete-file dst))
+    (rename-file-or-directory src dst))
+  (apply-template! "search-map.rkt" (output-dir) common-vars)
+  (apply-template! "file-map.rkt" (output-dir) common-vars)
 
   ;; Step 3: info
   (generate-info! (output-dir) (lang-name))

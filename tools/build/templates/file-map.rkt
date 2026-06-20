@@ -19,7 +19,7 @@
                   (if (pair? f) (path->string (car f)) f))]
          [i   (let loop ([i (sub1 (string-length s))])
                 (if (char=? (string-ref s i) #\/) i (loop (sub1 i))))])
-    (string-append (substring s 0 i) "/tables")))
+    (string-append (substring s 0 i) "/~TABLES-PATH~")))
 
 ;; 加载所有表
 (define all-id (make-hash))

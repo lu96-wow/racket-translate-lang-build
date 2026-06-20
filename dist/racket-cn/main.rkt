@@ -14,7 +14,7 @@
     (define active-kw (box (hash)))
     (define loaded    (box (list)))
 
-    ;; tables/ dir: relative to this file
+    ;; tables dir: relative to this file (build 时填充)
     (define tables-root
       (let* ([mpi (variable-reference->module-path-index (#%variable-reference))]
              [rmp (module-path-index-resolve mpi)]

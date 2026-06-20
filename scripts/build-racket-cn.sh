@@ -12,7 +12,7 @@ OUTPUT_DIR="${1:-dist/racket-cn}"
 
 racket tools/build/main.rkt \
   --lang racket-cn \
+  --base-lang racket \
   --maps-dir racket-maps \
   --output-dir "$OUTPUT_DIR" \
-  --preload racket/main \
-  --base-lang racket
+  --preload racket/main
