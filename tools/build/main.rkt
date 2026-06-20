@@ -138,13 +138,14 @@
   (display-to-file code out-path #:exists 'replace)
   (printf "  -> main.rkt (base-lang: ~a, preload: ~a)~n" base-lang preload-mod))
 
-;; 复制模板（无占位符替换）
-(define (copy-template! name output-dir)
-  (define src (build-path templates-dir name))
-  (define dst (build-path output-dir name))
-  (when (file-exists? src)
-    (copy-file src dst #:exists-ok? #t)
-    (printf "  -> ~a~n" name)))
+;; 复制并替换模板占位符
+(define (apply-template! name output-dir vars)
+  (define tmpl (file->string (build-path templates-dir name)))
+  (define result
+    (for/fold ([s tmpl]) ([(k v) (in-hash vars)])
+      (string-replace s k v)))
+  (display-to-file result (build-path output-dir name) #:exists 'replace)
+  (printf "  -> ~a~n" name))
 
 ;; ============================================================
 ;; Step 3: 生成 info.rkt
@@ -198,8 +199,9 @@
   ;; Step 2: reader + utilities
   (printf "~nGenerating files...~n")
   (generate-reader! (output-dir) (base-lang) (preload-mod))
-  (copy-template! "search-map.rkt" (output-dir))
-  (copy-template! "file-map.rkt" (output-dir))
+  (apply-template! "search-map.rkt" (output-dir) (hash))
+  (apply-template! "file-map.rkt" (output-dir)
+    (hash "~LANG-NAME~" (lang-name) "~BASE-LANG~" (base-lang)))
 
   ;; Step 3: info
   (generate-info! (output-dir) (lang-name))

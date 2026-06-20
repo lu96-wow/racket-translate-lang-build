@@ -1,13 +1,14 @@
 #lang racket/base
 ;; file-map.rkt — 文件翻译（保留缩进和空白）
-;; (map-file-> src dst)  中文→英文
-;; (map-file<- src dst)  英文→中文
-;;
-;; 原理：逐字符读取，识别 token 类型，只翻译标识符/关键字，
-;;       空白/换行/注释/字符串 原样保留。
+;; (map-file-> src dst)  中文→英文  #lang 自动转换
+;; (map-file<- src dst)  英文→中文  #lang 自动转换
 
 (require racket/file racket/path racket/string)
 (provide map-file-> map-file<-)
+
+;; 构建时填充的配置
+(define lang-name "racket-cn")
+(define base-lang "racket")
 
 ;; tables/ 目录
 (define tables-root
@@ -48,7 +49,7 @@
 (define rev-kw (for/hash ([(cn en) (in-hash all-kw)]) (values en cn)))
 
 ;; ============================================================
-;; 定界符判断
+;; 定界符
 ;; ============================================================
 (define (delimiter? c)
   (or (char-whitespace? c)
@@ -57,30 +58,30 @@
 ;; ============================================================
 ;; 逐字符扫描 + 翻译
 ;; ============================================================
-(define (translate-file src dst id-tbl kw-tbl)
+(define (translate-file src dst id-tbl kw-tbl src-lang dst-lang)
   (define text (file->string src))
   (define len (string-length text))
   (define out (open-output-string))
 
-  ;; 读取一个 token（直到定界符）
+  ;; 读取 token
   (define (read-token i)
     (let loop ([j i])
       (if (or (>= j len) (delimiter? (string-ref text j)))
           (values (substring text i j) j)
           (loop (add1 j)))))
 
-  ;; 复制字符串字面量（处理转义）
+  ;; 复制字符串字面量
   (define (copy-string i)
     (write-char #\" out)
     (let loop ([j (add1 i)])
       (cond
         [(>= j len) j]
-        [(char=? (string-ref text j) #\\)  ;; 转义
+        [(char=? (string-ref text j) #\\)
          (write-char #\\ out)
          (when (< (add1 j) len)
            (write-char (string-ref text (add1 j)) out))
          (loop (+ j 2))]
-        [(char=? (string-ref text j) #\")  ;; 结束
+        [(char=? (string-ref text j) #\")
          (write-char #\" out)
          (add1 j)]
         [else
@@ -99,7 +100,7 @@
          (write-char (string-ref text j) out)
          (loop (add1 j))])))
 
-  ;; 复制块注释 #| ... |#
+  ;; 复制块注释
   (define (copy-block-comment i)
     (display "#|" out)
     (let loop ([j (+ i 2)] [depth 1])
@@ -119,35 +120,41 @@
          (write-char (string-ref text j) out)
          (loop (add1 j) depth)])))
 
-  ;; 主循环
-  (let loop ([i 0])
+  ;; --- #lang 行处理 ---
+  (define first-nl
+    (let loop ([j 0])
+      (cond [(>= j len) len]
+            [(char=? (string-ref text j) #\newline) j]
+            [else (loop (add1 j))])))
+  (define first-line (substring text 0 first-nl))
+  ;; 转换 #lang 行
+  (cond
+    [(and (string-prefix? first-line "#lang ")
+          (equal? (string-trim (substring first-line 6)) src-lang))
+     (fprintf out "#lang ~a" dst-lang)]
+    [else
+     (display first-line out)])
+  (when (< first-nl len)
+    (write-char #\newline out))
+
+  ;; --- 主循环（从第二行开始） ---
+  (let loop ([i (if (< first-nl len) (add1 first-nl) first-nl)])
     (when (< i len)
       (define c (string-ref text i))
       (cond
-        ;; 空白（含换行、空格、tab）→ 原样保留
         [(char-whitespace? c)
          (write-char c out)
          (loop (add1 i))]
-
-        ;; 行注释
         [(char=? c #\;)
          (loop (copy-line-comment i))]
-
-        ;; 字符串字面量
         [(char=? c #\")
          (loop (copy-string i))]
-
-        ;; 括号 / 反引号 / 逗号 → 原样
         [(memq c '(#\( #\) #\[ #\] #\{ #\} #\` #\,))
          (write-char c out)
          (loop (add1 i))]
-
-        ;; 引号
         [(char=? c #\')
          (write-char c out)
          (loop (add1 i))]
-
-        ;; #: 关键字
         [(and (char=? c #\#)
               (< (add1 i) len)
               (char=? (string-ref text (add1 i)) #\:))
@@ -161,20 +168,14 @@
                       out)
              (begin (display "#:" out) (display kw-str out)))
          (loop end)]
-
-        ;; #| 块注释
         [(and (char=? c #\#)
               (< (add1 i) len)
               (char=? (string-ref text (add1 i)) #\|))
          (loop (copy-block-comment i))]
-
-        ;; 其他 # 前缀（#t #f #rx #hash 等）→ 原样输出
         [(char=? c #\#)
          (define-values (token end) (read-token i))
          (display token out)
          (loop end)]
-
-        ;; 普通 token → 查表翻译
         [else
          (define-values (token end) (read-token i))
          (define sym (string->symbol token))
@@ -188,5 +189,7 @@
     (lambda (p) (display (get-output-string out) p))))
 
 ;; --- API ---
-(define (map-file-> src dst) (translate-file src dst all-id all-kw))
-(define (map-file<- src dst) (translate-file src dst rev-id rev-kw))
+(define (map-file-> src dst)
+  (translate-file src dst all-id all-kw lang-name base-lang))
+(define (map-file<- src dst)
+  (translate-file src dst rev-id rev-kw base-lang lang-name))
