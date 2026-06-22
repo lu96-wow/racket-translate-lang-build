@@ -2,6 +2,8 @@
 
 A generic framework for building localized Racket language packages. Translate any Racket library into any language.
 
+![image](temp.gif)
+
 ## Quick Start
 
 ```bash
